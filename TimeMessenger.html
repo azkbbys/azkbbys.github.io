@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=devive-width,initial-scale=1.0">
     <title>Document</title>
 </head>
-<body oncopy = "return false">
+<body>
     <h1 id="时间使者服务帖">|时间使者|服务帖</h1>
     <p><strong>感谢您对《时间使者》的支持</strong></p>
     <a href="https://shequ.codemao.cn/work/174544838" target="_parent">
@@ -24,5 +24,10 @@
         <button>毕业生官网戳我</button>
     </a>
     <p>你找到了毕业生的底线</p>
+    <script>
+        $(document).bind("contextmenu copy selectstart", function() {
+        return false;
+        });
+    </script>
 </body>
 </html>
