@@ -28,6 +28,12 @@
         $(document).bind("contextmenu copy selectstart", function() {
         return false;
         });
+        // 禁用Ctrl+C和Ctrl+V（所有浏览器均支持）
+        $(document).keydown(function(e) {
+        if(e.ctrlKey && (e.keyCode == 65 || e.keyCode == 67)) {
+        return false;
+  }
+});
     </script>
 </body>
 </html>
