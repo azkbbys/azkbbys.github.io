@@ -20,7 +20,45 @@
     <!--                                                                   , !NMm                 -->
     <!--                                                                   H@Qo                   -->
     <title>阿兹卡班毕业生</title>
-    <h1>网站导航</h1>
+    <style>
+        #navigation2{
+            list-style-type:none;
+            /*↑移除列表前小标志*/
+            overflow: hidden;
+            margin: 0%;
+            padding: 0%;
+            background-color: rgb(179, 81, 179);
+        }
+        a.nav{
+            text-decoration: none;
+            display: block;
+            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+            width: 100px;
+            text-align: center;
+            color:white;
+            padding: 14px 16px;
+        }
+        /* 伪类 */
+        li a:hover{
+            background-color: purple;
+        }
+        #navigation2 li{
+            /* 设置列表水平 */
+            display: inline;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <body style="margin: 0%;padding: 0%;">
+        <!-- 制作导航栏2：使用列表 -->
+        <ul id="navigation2">
+            <li><a href="https://azkbbys.github.io" target="_parent" class="nav">主页</a></li>
+            <li><a href="https://azkbbys.github.io/video" target="_parent" class="nav">视频</a></li>
+            <li><a href="https://shequ.codemao.cn/user/11952313" target="_blank" class="nav">毕业生</a></li>
+        </ul>
+    </body>
+    <center><h1>主页</h1></center>
     <a href = "http://shequ.codemao.cn/user/11952313">
         <button>点我跳转阿兹卡班毕业生的个人中心</button>
     </a>
@@ -53,19 +91,54 @@
         <button>说明</button>
     </a>
     <br/>
+    <center>
+        <button onclick="copyInnerTextOfCell()">
+            <font color="green" size=30><strong>点击复制网址</strong></font>
+        </button>
+    </center>
+    <br/>
     <p>毕业生广告↓</p>
     <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" src="https://azkbbys.github.io/advertising.html" height="110" width="110"></iframe>
-    <p>快来投广告！联系阿兹卡班毕业生即可，目前广告免费，支持iframe，广告信息请e-mail at oyroyroyr@163.com</p>
-    <p>毕业生是有底线的</p>
-    
-</head>
-<body>
-    <!-- 音乐Minecraft的iframe播放 -->
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4010201&auto=1&height=66"></iframe>
+    <br/>
+    <center><p>--毕业生是有底线的--</p></center>
+    <script type="text/javascript">
+        //进入全屏
+        function enterFullScreen() {
+            var de = document.documentElement;
+            if (de.requestFullscreen) {
+                de.requestFullscreen();
+            } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+            } else if (de.webkitRequestFullScreen) {
+                de.webkitRequestFullScreen();
+            }
+        }
+        //退出全屏
+        function exitFullScreen() {
+            var de = document;
+            if (de.exitFullscreen) {
+                de.exitFullscreen();
+            } else if (de.mozCancelFullScreen) {
+                de.mozCancelFullScreen();
+            } else if (de.webkitCancelFullScreen) {
+                de.webkitCancelFullScreen();
+            }
+        }
+        copyInnerTextOfCell = (event) => {
+            let innerText = 'https://azkbbys.github.io';
+            var tmpInput = document.createElement('input');
+            document.body.appendChild(tmpInput);
+            tmpInput.value = innerText;
+            tmpInput.select();
+            document.execCommand('copy')
+            tmpInput.remove();
+            alert('复制成功！内容：' + innerText)
+        }
+    </script>
+
     <style type="text/css">
         /* 背景 */
     	body{
-            
             cursor:url('7.jpg'),auto;
     		background: url("7.jpg") no-repeat center center fixed;
                     /*兼容浏览器版本*/
@@ -74,9 +147,7 @@
                     background-size: cover;
     	}
         /* 鼠标 */
-        body{cursor:url(https://azkbbys.github.io/mouse.ico),auto}
+        head{cursor:url(https://azkbbys.github.io/mouse.ico),auto}
     </style>
-    
-    <!-- 背景 -->
 </body>
 </html>
