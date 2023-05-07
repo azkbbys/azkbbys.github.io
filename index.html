@@ -79,12 +79,6 @@
             background: purple;
             text-align: left;
         }
-        @media screen and (max-width:700px){
-            .lside,.rside,.content{
-                width: 1000%;
-                margin: 0px;
-            }
-        }
         .footer_left{
             width: 33%;
             float: left;
@@ -96,6 +90,13 @@
         .footer_center{
             float: center;
         }
+        @media screen and (max-width:700px){
+            .lside,.rside,.content,.footer_left,.footer_right,.footer_center{
+                width: 100%;
+                margin: 0px;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -116,7 +117,7 @@
         中间的栏是自适应的，所以中间的栏放在第3个
         -->
         <div class="lside">
-            <h2>跳转</h2>
+            <h2 id="跳转">跳转</h2>
             <a href = "http://shequ.codemao.cn/user/11952313">
                 <button>阿兹卡班毕业生的个人中心</button>
             </a>
@@ -126,7 +127,7 @@
             </a>
         </div>
         <div class="rside">
-            <h2>其他</h2>
+            <h2 id="其它">其它</h2>
             <a href = "http://shequ.codemao.cn/user/11952313">
                 <button>关注阿兹卡班毕业生</button>
             </a>
@@ -144,7 +145,7 @@
             </button>
         </div>
         <div class="content">
-            <h2>分支</h2>
+            <h2 id="分支">分支</h2>
             <a href = "http://azkbbys.github.io/works">
                 <button>作品</button>
             </a>
@@ -158,11 +159,12 @@
             </a>
         </div>
     </div>
+
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <center><p>--毕业生是有底线的--</p></center>
+    <center><p id="底线">--毕业生是有底线的--</p></center>
     <div class="footer">
         <div class="footer_left">
-            <strong><font color="white">快速链接</font></strong>
+            <strong><font color="white" id="快速链接">快速链接</font></strong>
             <br/>
             <a href="https://shequ.codemao.cn/user/11952313" target="_blank">
                 <font color="white" size="2">个人中心</font>
@@ -173,14 +175,14 @@
             </a>
         </div>
         <div class="footer_right">
-            <strong><font color="white">其它信息</font></strong>
+            <strong><font color="white" id="其它信息">其它信息</font></strong>
             <br/>
             <a href="https://icp.gov.moe/?keyword=20230423" target="_blank">
-                <font color="white">萌ICP备20230423号</font>
+                <font color="white" size="2">萌ICP备20230423号</font>
             </a>
         </div>
         <div class="footer_center">
-            <strong><font color="white">友情链接</font></strong>
+            <strong><font color="white" id="友情链接">友情链接</font></strong>
             <br/>
             <a href="https://shequ.codemao.cn" target="_blank">
                 <font color="white" size="2">编程猫社区</font>
@@ -226,7 +228,7 @@
         /* 背景 */
     	body{
             cursor:url('https://azkbbys.github.io/files/bg.png'),auto;
-    		background: url("https://azkbbys.github.io/files/bg.png") no-repeat center center fixed;
+    	    background: url("https://azkbbys.github.io/files/bg.png") no-repeat center center fixed;
                     /*兼容浏览器版本*/
                     -webkit-background-size: cover;
                     -o-background-size: cover;
