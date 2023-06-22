@@ -113,11 +113,13 @@
         <!-- <img src="https://azkbbys.github.io/files/banner.gif" style="size:10%"></img> -->
     </div>
     <div class="container">
-        <!-- 主体放入3个盒子，分别是左中右，用margin进行3栏布局
+        <!--
+        主体放入3个盒子，分别是左中右，用margin进行3栏布局
         中间的栏是自适应的，所以中间的栏放在第3个
         -->
         <div class="lside">
-            <h2 id="跳转">跳转</h2>
+            <a name="跳转"></a>
+            <h2>跳转</h2>
             <a href = "http://shequ.codemao.cn/user/11952313">
                 <button>阿兹卡班毕业生的个人中心</button>
             </a>
@@ -127,7 +129,8 @@
             </a>
         </div>
         <div class="rside">
-            <h2 id="其它">其它</h2>
+            <a name="其它"></a>
+            <h2>其它</h2>
             <a href = "http://shequ.codemao.cn/user/11952313">
                 <button>关注阿兹卡班毕业生</button>
             </a>
@@ -145,7 +148,8 @@
             </button>
         </div>
         <div class="content">
-            <h2 id="分支">分支</h2>
+            <a name="分支"></a>
+            <h2>分支</h2>
             <a href = "http://azkbbys.github.io/works">
                 <button>作品</button>
             </a>
@@ -164,7 +168,8 @@
     <center><p id="底线">--毕业生是有底线的--</p></center>
     <div class="footer">
         <div class="footer_left">
-            <strong><font color="white" id="快速链接">快速链接</font></strong>
+            <a name="快速链接"></a>
+            <strong><font color="white">快速链接</font></strong>
             <br/>
             <a href="https://shequ.codemao.cn/user/11952313" target="_blank">
                 <font color="white" size="2">个人中心</font>
@@ -175,20 +180,28 @@
             </a>
         </div>
         <div class="footer_right">
-            <strong><font color="white" id="其它信息">其它信息</font></strong>
+            <a name="其它信息"></a>
+            <strong><font color="white">其它信息</font></strong>
             <br/>
             <a href="https://icp.gov.moe/?keyword=20230423" target="_blank">
                 <font color="white" size="2">萌ICP备20230423号</font>
             </a>
+            <br/>
+            <a href="https://github.com/azkbbys/azkbbys.github.io/actions/runs/3851599384"><font id="uptime" color="white" size="2"></a>
         </div>
         <div class="footer_center">
-            <strong><font color="white" id="友情链接">友情链接</font></strong>
+            <a name="友情链接"></a>
+            <strong><font color="white">友情链接</font></strong>
             <br/>
             <a href="https://shequ.codemao.cn" target="_blank">
                 <font color="white" size="2">编程猫社区</font>
             </a>
         </div>
+        <br/>
+        <br/>
+        <center><strong><font color="white">copyright © 阿兹卡班毕业生</font></strong></center>
     </div>
+
     <script type="text/javascript">
         //进入全屏
         function enterFullScreen() {
@@ -222,6 +235,21 @@
             tmpInput.remove();
             alert('复制成功！内容：' + innerText)
         }
+
+        function updateUptime() {
+            var launchDate = new Date(2023, 3, 4, 22, 14, 8); // 设置上线时间，年份、月份、日期、小时、分钟、秒钟
+            var currentDate = new Date();
+
+            var timeDiff = currentDate.getTime() - launchDate.getTime();
+            var seconds = Math.floor(timeDiff / 1000) % 60;
+            var minutes = Math.floor(timeDiff / (1000 * 60)) % 60;
+            var hours = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
+            var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+            var uptimeString = '网站已上线' + days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+            document.getElementById("uptime").textContent = uptimeString;
+        }
+        setInterval(updateUptime, 1000); // 每秒钟更新一次上线时间
     </script>
 
     <style type="text/css">
