@@ -170,6 +170,10 @@
                 <button>接收传输文件</button>
             </a>
             <br/>
+            <a href = "http://azkbbys.github.io/onlinetools">
+                <button>在线工具</button>
+            </a>
+            <br/>
             <a href = "http://azkbbys.github.io/update_log.html">
                 <button>更新日志</button>
             </a>
@@ -275,7 +279,26 @@
 
         function jsalert(text) {
             alert(text)
-        }
+        };
+    </script>
+    <script>
+        // 浏览器搞笑标题
+        var OriginTitle = document.title;
+        var titleTime;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                document.title = '此页面未响应';
+                clearTimeout(titleTime);
+            }
+            else {
+                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                document.title = '噫又好啦 ~';
+                titleTime = setTimeout(function () {
+                    document.title = OriginTitle;
+                }, 2000);
+            }
+        });
     </script>
 
     <style type="text/css">
