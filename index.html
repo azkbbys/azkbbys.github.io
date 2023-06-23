@@ -127,6 +127,12 @@
             <a href = "http://azkbbys.mysxl.cn">
                 <button>另一个官网</button>
             </a>
+            <br/>
+            <a href="https://github.com/azkbbys/azkbbys.github.io">
+                <button>查看网页源文件</button>
+            </a>
+            <br/>
+            <button href="javascript:;" onclick="jsalert('您可以通过oyroyroyr@163.com向阿兹卡班毕业生发送邮件以提交建议')">提交建议</button>
         </div>
         <div class="rside">
             <a name="其它"></a>
@@ -146,6 +152,8 @@
             <button onclick="copyInnerTextOfCell()">
                 <font color="green"><strong>点击复制网址</strong></font>
             </button>
+            <br/>
+            <button href="javascript:;" onclick="FullScreen()">进入/退出全屏</button>
         </div>
         <div class="content">
             <a name="分支"></a>
@@ -160,6 +168,10 @@
             <br/>
             <a href = "http://azkbbys.github.io/WenJianChuanShuZhuShou.html">
                 <button>接收传输文件</button>
+            </a>
+            <br/>
+            <a href = "http://azkbbys.github.io/update_log.html">
+                <button>更新日志</button>
             </a>
         </div>
     </div>
@@ -203,6 +215,7 @@
     </div>
 
     <script type="text/javascript">
+        var fullscreen=false
         //进入全屏
         function enterFullScreen() {
             var de = document.documentElement;
@@ -213,6 +226,7 @@
             } else if (de.webkitRequestFullScreen) {
                 de.webkitRequestFullScreen();
             }
+            fullscreen=true
         }
         //退出全屏
         function exitFullScreen() {
@@ -223,6 +237,14 @@
                 de.mozCancelFullScreen();
             } else if (de.webkitCancelFullScreen) {
                 de.webkitCancelFullScreen();
+            }
+            fullscreen=false
+        }
+        function FullScreen() {
+            if(fullscreen){
+                exitFullScreen()
+            }else{
+                enterFullScreen()
             }
         }
         copyInnerTextOfCell = (event) => {
@@ -250,6 +272,10 @@
             document.getElementById("uptime").textContent = uptimeString;
         }
         setInterval(updateUptime, 1000); // 每秒钟更新一次上线时间
+
+        function jsalert(text) {
+            alert(text)
+        }
     </script>
 
     <style type="text/css">
