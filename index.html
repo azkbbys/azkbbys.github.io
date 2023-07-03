@@ -180,6 +180,10 @@
         </div>
     </div>
 
+    <a name="公告"></a>
+    <center><h2>公告</h2></center>
+    <center><p>2023年7月3日,毕业生上源码传说啦!泰裤辣!</p></center>
+
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <center><p id="底线">--毕业生是有底线的--</p></center>
     <div class="footer">
@@ -281,25 +285,6 @@
             alert(text)
         };
     </script>
-    <script>
-        // 浏览器搞笑标题
-        var OriginTitle = document.title;
-        var titleTime;
-        document.addEventListener('visibilitychange', function () {
-            if (document.hidden) {
-                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
-                document.title = '此页面未响应';
-                clearTimeout(titleTime);
-            }
-            else {
-                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
-                document.title = '噫又好啦 ~';
-                titleTime = setTimeout(function () {
-                    document.title = OriginTitle;
-                }, 2000);
-            }
-        });
-    </script>
 
     <style type="text/css">
         /* 背景 */
@@ -314,5 +299,25 @@
         /* 鼠标 */
         head{cursor:url(https://azkbbys.github.io/files/mouse.ico),auto}
     </style>
+
+    <script>
+        // 浏览器搞笑标题
+        var OriginTitle = document.title;
+        var titleTime;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                document.title = '此页面未响应';
+                clearTimeout(titleTime);
+            }
+            else {
+                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                document.title = '噫又好啦 ~';
+                titleTime = setTimeout(function () {
+                    document.title = '阿兹卡班毕业生';
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>
