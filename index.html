@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <link rel="SHORTCUT ICON" href="https://azkbbys.github.io/favicon.ico">
-    <link rel="bookmark" type="image/x-icon" href="https://azkbbys.github.io/favicon.ico"/>
+    <link rel="SHORTCUT ICON" href="./favicon.ico">
+    <link rel="bookmark" type="image/x-icon" href="./favicon.ico"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=devive-width,
     initial-scale=1.0">
@@ -289,15 +289,15 @@
     <style type="text/css">
         /* 背景 */
     	body{
-            cursor:url('https://azkbbys.github.io/files/bg.png'),auto;
-    	    background: url("https://azkbbys.github.io/files/bg.png") no-repeat center center fixed;
+            cursor:url('./files/bg.png'),auto;
+    	    background: url("./files/bg.png") no-repeat center center fixed;
                     /*兼容浏览器版本*/
                     -webkit-background-size: cover;
                     -o-background-size: cover;
                     background-size: cover;
     	}
         /* 鼠标 */
-        head{cursor:url(https://azkbbys.github.io/files/mouse.ico),auto}
+        head{cursor:url(./files/mouse.ico),auto}
     </style>
 
     <script>
@@ -306,12 +306,12 @@
         var titleTime;
         document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
-                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                $('[rel="icon"]').attr('href', "./favicon.ico");
                 document.title = '此页面未响应';
                 clearTimeout(titleTime);
             }
             else {
-                $('[rel="icon"]').attr('href', "https://azkbbys.github.io/favicon.ico");
+                $('[rel="icon"]').attr('href', "./favicon.ico");
                 document.title = '噫又好啦 ~';
                 titleTime = setTimeout(function () {
                     document.title = '阿兹卡班毕业生';
