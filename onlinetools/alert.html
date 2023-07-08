@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devive-width,
+    initial-scale=1.0">
+    <title>在线alert|在线工具|阿兹卡班毕业生</title>
+</head>
+<body>
+    <style>
+        #navigation2{
+            list-style-type:none;
+            /*↑移除列表前小标志*/
+            overflow: hidden;
+            margin: 0%;
+            padding: 0%;
+            background-color: rgb(179, 81, 179);
+        }
+        a.nav{
+            text-decoration: none;
+            display: block;
+            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+            width: 100px;
+            text-align: center;
+            color:white;
+            padding: 14px 16px;
+        }
+        /* 伪类 */
+        li a:hover{
+            background-color: purple;
+        }
+        #navigation2 li{
+            /* 设置列表水平 */
+            display: inline;
+            float: left;
+        }
+    </style>
+
+    <body style="margin: 0%;padding: 0%;">
+        <!-- 制作导航栏2：使用列表 -->
+        <ul id="navigation2">
+            <li><a href="https://azkbbys.github.io" target="_parent" class="nav">主页</a></li>
+            <li><a href="https://azkbbys.github.io/video" target="_parent" class="nav">视频</a></li>
+            <li><a href="https://shequ.codemao.cn/user/11952313" target="_blank" class="nav">毕业生</a></li>
+        </ul>
+    </body>
+    <center><h1>在线alert</h1></center>
+    <!-- <h2>直接alert</h2> -->
+    
+    <!-- <input type="text" id="alertstr" placeholder="请输入你看到的字母（大写）"/> -->
+    <!-- <button onclick='submit()'>提交</button>
+    <script>
+        function submit(){
+            var oInput =document.getElementById("alertstr") //获取一个id为alertstr的输入框元素；
+            alert(oInput)
+        }
+    </script> -->
+    <!-- <a href="?alertstr="+submit>
+        <button>确定alert</button>
+    </a> -->
+    <br/>
+    <button onclick="alert('在网址后加上?alertstr=[需要alert的字符]即可alert\n请注意:内容若不是英文或数字,可能会出现乱码的现象')">查看方法</button>
+
+    <script>
+        // function submit(){
+        //     var inputstr = document.getElementsById("alertstr");
+        //     return inputstr;
+        // }
+        function GetRequest(){
+            var url = location.search;
+            var theRequest = new Object();
+            if(url.indexOf("?")!=-1){
+                var str = url.substr(1);
+                strs = str.split("&");
+                for(var i = 0; i < strs.length; i++){
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest
+        }
+        function GetAlertStr(){
+            var Request = new Object();
+            Request = GetRequest();
+            var alertstr=Request['alertstr']
+            return alertstr
+        }
+        alert(GetAlertStr())
+    </script>
+    <style type="text/css">
+    	body{
+            cursor:url('../files/bg.png'),auto;
+    		background: url("../files/bg.png") no-repeat center center fixed;
+                    /*兼容浏览器版本*/
+                    -webkit-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+    	}
+        /* 鼠标 */
+        head{cursor:url(../files/mouse.ico),auto}
+    </style>
+</body>
+</html>
