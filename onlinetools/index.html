@@ -14,7 +14,7 @@
             overflow: hidden;
             margin: 0%;
             padding: 0%;
-            background-color: rgb(179, 81, 179);
+            /* background-color: rgb(179, 81, 179); */
         }
         a.nav{
             text-decoration: none;
@@ -26,13 +26,54 @@
             padding: 14px 16px;
         }
         /* 伪类 */
-        li a:hover{
-            background-color: purple;
-        }
         #navigation2 li{
             /* 设置列表水平 */
             display: inline;
             float: left;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .header,.container,.footer{
@@ -40,11 +81,6 @@
             float: left;
             /* 满浏览器 */
             width: 100%;
-        }
-        .header{
-            background: purple;
-            /* padding: 20px; */
-            text-align: center;
         }
         .lside{
             width: 33%;
@@ -87,18 +123,12 @@
     </style>
 </head>
 <body>
-    <body style="margin: 0%;padding: 0%;">
-        <!-- 制作导航栏2：使用列表 -->
-        <ul id="navigation2">
-            <li><a href="https://azkbbys.github.io" target="_parent" class="nav">主页</a></li>
-            <li><a href="https://azkbbys.github.io/video" target="_parent" class="nav">视频</a></li>
-            <li><a href="https://shequ.codemao.cn/user/11952313" target="_blank" class="nav">毕业生</a></li>
-        </ul>
-    </body>
-    <div class="header">
-        <center><h1>主页</h1></center>
-        <!-- <img src="https://azkbbys.github.io/files/banner.gif" style="size:10%"></img> -->
-    </div>
+    <header>
+        <a href="https://azkbbys.github.io">主页>></a><a href="https://azkbbys.github.io/onlinetools">在线工具</a>
+    </header>
+    <br/><br/>
+    <h1>在线工具</h1>
+
     <div class="container">
         <!--
         主体放入3个盒子，分别是左中右，用margin进行3栏布局
@@ -149,7 +179,7 @@
             <a name="其它信息"></a>
             <strong><font color="white">其它信息</font></strong>
             <br/>
-            <a herf="javascript:;" onclick="jsalert('a')"><font color="white" size="2">原创声明</font></a>
+            <a herf="javascript:;" onclick="jsalert('本网页下的所有内容均为原创\n抄袭必究')"><font color="white" size="2">原创声明</font></a>
             <br/>
             <font id="uptime" color="white" size="2"></font>
         </div>
