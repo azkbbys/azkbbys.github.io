@@ -27,7 +27,7 @@
             overflow: hidden;
             margin: 0%;
             padding: 0%;
-            background-color: rgb(179, 81, 179);
+            /* background-color: rgb(179, 81, 179); */
         }
         a.nav{
             text-decoration: none;
@@ -39,13 +39,54 @@
             padding: 14px 16px;
         }
         /* 伪类 */
-        li a:hover{
-            background-color: purple;
-        }
         #navigation2 li{
             /* 设置列表水平 */
             display: inline;
             float: left;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8e24c4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #8e24c4;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .header,.container,.footer{
@@ -53,11 +94,6 @@
             float: left;
             /* 满浏览器 */
             width: 100%;
-        }
-        .header{
-            background: purple;
-            /* padding: 20px; */
-            text-align: center;
         }
         .lside{
             width: 33%;
@@ -96,18 +132,13 @@
                 margin: 0px;
             }
         }
-        
     </style>
 </head>
 <body>
-    <body style="margin: 0%;padding: 0%;">
-        <!-- 制作导航栏2：使用列表 -->
-        <ul id="navigation2">
-            <li><a href="https://azkbbys.github.io" target="_parent" class="nav">主页</a></li>
-            <li><a href="https://azkbbys.github.io/video" target="_parent" class="nav">视频</a></li>
-            <li><a href="https://shequ.codemao.cn/user/11952313" target="_blank" class="nav">毕业生</a></li>
-        </ul>
-    </body>
+    <header>
+        <strong>阿兹卡班毕业生</strong>
+    </header>
+    <br/><br/><br/>
     <div class="header">
         <center><h1>主页</h1></center>
         <!-- <img src="https://azkbbys.github.io/files/banner.gif" style="size:10%"></img> -->
@@ -142,7 +173,7 @@
             </a>
             <br/>
             <a href = "http://azkbbys.github.io/video">
-                <button>自制视频</button>
+                <button>【火】自制视频</button>
             </a>
             <br/>
             <a href = "http://azkbbys.github.io/explain.html">
@@ -150,7 +181,7 @@
             </a>
             <br/>
             <button onclick="copyInnerTextOfCell()">
-                <font color="green"><strong>点击复制网址</strong></font>
+                <strong>点击复制网址</strong>
             </button>
             <br/>
             <button href="javascript:;" onclick="FullScreen()">进入/退出全屏</button>
@@ -171,7 +202,7 @@
             </a>
             <br/>
             <a href = "http://azkbbys.github.io/onlinetools">
-                <button>在线工具</button>
+                <button>🛠️🛠️【火】在线工具🛠️🛠️</button>
             </a>
             <br/>
             <a href = "http://azkbbys.github.io/update_log.html">
@@ -184,7 +215,7 @@
     <center><h2>公告</h2></center>
     <center><p>2023年7月3日,毕业生上源码传说啦!泰裤辣!</p></center>
 
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <center><p id="底线">--毕业生是有底线的--</p></center>
     <div class="footer">
         <div class="footer_left">
@@ -207,7 +238,7 @@
                 <font color="white" size="2">萌ICP备20230423号</font>
             </a>
             <br/>
-            <a href="https://github.com/azkbbys/azkbbys.github.io/actions/runs/3851599384"><font id="uptime" color="white" size="2"></a>
+            <a href="https://github.com/azkbbys/azkbbys.github.io/actions/runs/3851599384"><font id="uptime" color="white" size="2"></font></a>
         </div>
         <div class="footer_center">
             <a name="友情链接"></a>
@@ -299,25 +330,5 @@
         /* 鼠标 */
         head{cursor:url(./files/mouse.ico),auto}
     </style>
-
-    <script>
-        // 浏览器搞笑标题
-        var OriginTitle = document.title;
-        var titleTime;
-        document.addEventListener('visibilitychange', function () {
-            if (document.hidden) {
-                $('[rel="icon"]').attr('href', "./favicon.ico");
-                document.title = '此页面未响应';
-                clearTimeout(titleTime);
-            }
-            else {
-                $('[rel="icon"]').attr('href', "./favicon.ico");
-                document.title = '噫又好啦 ~';
-                titleTime = setTimeout(function () {
-                    document.title = '阿兹卡班毕业生';
-                }, 2000);
-            }
-        });
-    </script>
 </body>
 </html>
