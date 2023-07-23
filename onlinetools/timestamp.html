@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线日期时间转时间戳|在线工具|阿兹卡班毕业生</title>
+    <link rel="icon" type="image/x-icon" href="https://azkbbys.github.io/favicon.ico">
+    <style>
+        /* 新增的样式 */
+        body {
+            color: purple;
+        }
+
+        /* 其他样式保持不变 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        body {
+            background-image: url("https://azkbbys.github.io/files/bg.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="https://azkbbys.github.io">主页>></a><a href="https://azkbbys.github.io/onlinetools">在线工具>></a><a href="https://azkbbys.github.io/onlinetools/timestamp.html">在线日期时间转时间戳</a>
+    </header>
+    <h1>日期时间转时间戳</h1>
+    <label for="datetime">输入日期时间：</label>
+    <input type="datetime-local" id="datetime">
+    <button onclick="convertToTimestamp()">转换</button>
+    <p id="result"></p>
+
+    <script>
+        function convertToTimestamp() {
+            const inputElement = document.getElementById("datetime");
+            const resultElement = document.getElementById("result");
+
+            if (inputElement.value) {
+                // 将输入的日期时间转换为时间戳（以毫秒为单位）
+                const timestamp = new Date(inputElement.value).getTime();
+
+                // 在页面上显示结果
+                resultElement.textContent = `时间戳：${timestamp} 毫秒`;
+            } else {
+                resultElement.textContent = "请输入有效的日期时间";
+            }
+        }
+    </script>
+</body>
+
+</html>

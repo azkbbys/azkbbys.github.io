@@ -4,46 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=devive-width,
     initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://azkbbys.github.io/favicon.ico">
     <title>在线alert|在线工具|阿兹卡班毕业生</title>
 </head>
 <body>
     <style>
-        #navigation2{
-            list-style-type:none;
-            /*↑移除列表前小标志*/
-            overflow: hidden;
-            margin: 0%;
-            padding: 0%;
-            background-color: rgb(179, 81, 179);
-        }
-        a.nav{
-            text-decoration: none;
-            display: block;
-            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
-            width: 100px;
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
             text-align: center;
-            color:white;
-            padding: 14px 16px;
+            font-size: 24px;
+            font-weight: bold;
         }
-        /* 伪类 */
-        li a:hover{
-            background-color: purple;
+
+        body {
+            background-image: url("https://azkbbys.github.io/files/bg.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            margin-top: 60px;
         }
-        #navigation2 li{
-            /* 设置列表水平 */
-            display: inline;
-            float: left;
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
         }
     </style>
 
-    <body style="margin: 0%;padding: 0%;">
-        <!-- 制作导航栏2：使用列表 -->
-        <ul id="navigation2">
-            <li><a href="https://azkbbys.github.io" target="_parent" class="nav">主页</a></li>
-            <li><a href="https://azkbbys.github.io/video" target="_parent" class="nav">视频</a></li>
-            <li><a href="https://shequ.codemao.cn/user/11952313" target="_blank" class="nav">毕业生</a></li>
-        </ul>
-    </body>
+    <body>
+        <header>
+            <a href="https://azkbbys.github.io">主页>></a><a href="https://azkbbys.github.io/onlinetools">在线工具>></a><a href="https://azkbbys.github.io/onlinetools/alert.html">在线alert</a>
+        </header>
     <center><h1>在线alert</h1></center>
     <!-- <h2>直接alert</h2> -->
     
@@ -60,7 +87,7 @@
     </a> -->
     <br/>
     <button onclick="alert('在网址后加上?alertstr=[需要alert的字符]即可alert\n请注意:内容若不是英文或数字,可能会出现乱码的现象')">查看方法</button>
-
+    
     <script>
         // function submit(){
         //     var inputstr = document.getElementsById("alertstr");
@@ -81,7 +108,7 @@
         function GetAlertStr(){
             var Request = new Object();
             Request = GetRequest();
-            var alertstr=Request['alertstr']
+            var alertstr=Request['alertstr'] // 获取名为"alertstr"的参数的值
             return alertstr
         }
         alert(GetAlertStr())
