@@ -21,6 +21,20 @@
     <!--                                                                   H@Qo                   -->
     <title>阿兹卡班毕业生</title>
     <style>
+        body{
+            /* 鼠标 */
+            cursor:url(https://azkbbys.github.io/files/mouse.ico),auto;
+            /* 背景 */
+            position: absolute;
+            top:auto;
+            right: auto;
+            bottom:auto;
+            left: auto;
+            background: url(https://azkbbys.github.io/files/bg.png);
+            background-size: cover;
+            backdrop-filter: blur(10px);
+    	}
+
         #navigation2{
             list-style-type:none;
             /*↑移除列表前小标志*/
@@ -81,7 +95,7 @@
         }
 
         button:hover {
-            background-color: #8e24c4;
+            background-color: #5f078a;
         }
 
         #result {
@@ -208,6 +222,9 @@
             <a href = "http://azkbbys.github.io/update_log.html">
                 <button>更新日志</button>
             </a>
+            <a href = "https://azkbbys.github.io/aboutbys">
+                <button>【new】关于毕业生</button>
+            </a>
         </div>
     </div>
 
@@ -249,10 +266,14 @@
             </a>
         </div>
         <br/>
+        <strong><font color="white" size="3">历史上的今天</font></strong>
+        <font color="white" size="2"><div id="historytoday"></div></font>
+        <br/>
         <br/>
         <center><strong><font color="white">copyright © 阿兹卡班毕业生</font></strong></center>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
         var fullscreen=false
         //进入全屏
@@ -315,20 +336,20 @@
         function jsalert(text) {
             alert(text)
         };
-    </script>
 
-    <style type="text/css">
-        /* 背景 */
-    	body{
-            cursor:url('./files/bg.png'),auto;
-    	    background: url("./files/bg.png") no-repeat center center fixed;
-                    /*兼容浏览器版本*/
-                    -webkit-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
-    	}
-        /* 鼠标 */
-        head{cursor:url(./files/mouse.ico),auto}
-    </style>
+        // 历史上的今天
+        $(document).ready(function() {
+            $(document).ready(function() {
+            $.ajax({
+                url: "https://api.andeer.top/API/history.php",
+                dataType: "json",
+                success: function(response) {
+                    var data = response.data;
+                    $("#historytoday").text(data);
+                }
+            });
+        });
+        });
+    </script>
 </body>
 </html>
