@@ -1,8 +1,10 @@
-![Star History Chart](https://api.star-history.com/svg?repos=newazkbbys/newazkbbys.github.io&type=Date)
+![Star History Chart](https://api.star-history.com/svg?repos=azkbbys/azkbbys.github.io&type=Date)
 选择一个语言|選擇一個語言|Select a language.
+
 - [简体中文](#简体中文)
 - [繁体中文](#繁体中文)
 - [English](#english)
+
 ### 简体中文
 
 # 阿兹卡班毕业生的官网
