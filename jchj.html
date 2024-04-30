@@ -5,7 +5,129 @@
     <meta name="viewport" content="width=devive-width,
     initial-scale=1.0">
     <title>教程合集</title>
-    <h1>阿兹卡班毕业生原创教程</h1>
+    <style>
+        #navigation2{
+            list-style-type:none;
+            /*↑移除列表前小标志*/
+            overflow: hidden;
+            margin: 0%;
+            padding: 0%;
+            /* background-color: rgb(179, 81, 179); */
+        }
+        a.nav{
+            text-decoration: none;
+            display: block;
+            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+            width: 100px;
+            text-align: center;
+            color:white;
+            padding: 14px 16px;
+        }
+        /* 伪类 */
+        #navigation2 li{
+            /* 设置列表水平 */
+            display: inline;
+            float: left;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8e24c4;
+            color: white;
+            border: none;
+            cursor: url(https://azkbbys.github.io/files/mouse.ico),auto;
+        }
+
+        button:hover {
+            background-color: #5f078a;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header,.container,.footer{
+            /* 左浮动 */
+            float: left;
+            /* 满浏览器 */
+            width: 100%;
+        }
+        .lside{
+            width: 33%;
+            float: left;
+        }
+        .rside{
+            width: 33%;
+            float: right;
+        }
+        /* 左右边距 */
+        .content{
+            margin: 0px 205px;
+        }
+        .lside,.rside,.content{
+            padding: 5px;
+        }
+        .footer{
+            padding: 10px;
+            background: purple;
+            text-align: left;
+        }
+        .footer_left{
+            width: 33%;
+            float: left;
+        }
+        .footer_right{
+            width: 33%;
+            float: right;
+        }
+        .footer_center{
+            float: center;
+        }
+        @media screen and (max-width:700px){
+            .lside,.rside,.content,.footer_left,.footer_right,.footer_center{
+                width: 100%;
+                margin: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://azkbbys.github.io">主页>></a><a href="https://azkbbys.github.io/jchj.html">教程合集</a>
+    </header>
+    <br/>
+    <br/>
+    <div class="header">
+        <h1>阿兹卡班毕业生原创教程</h1>
+    </div>
     <br/>
     <a href="https://azkbbys.github.io">
         <button>回到网站导航</button>
@@ -15,16 +137,15 @@
         <button>建站方法</button>
     </a>
     <br/>
-    <p>暂时没有更多了，想学习什么东西可以在我作品下方留言</p>
-</head>
-<body>
-    <style type="text/css">
+    <p>暂时没有更多了，想学习什么东西可以联系我</p>
+    <style>
     	body{
-    		background: url("7.jpg") no-repeat center center fixed;
-                    /*兼容浏览器版本*/
-                    -webkit-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
+    	    background: url("./files/bg.png") no-repeat center center fixed;
+            /*兼容浏览器版本*/
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            cursor: url("./files/mouse.ico"),auto;
     	}
     </style>
 </body>
