@@ -7,120 +7,8 @@
     <meta name="viewport" content="width=devive-width,
     initial-scale=1.0">
     <title>在线工具|阿兹卡班毕业生</title>
-    <style>
-        #navigation2{
-            list-style-type:none;
-            /*↑移除列表前小标志*/
-            overflow: hidden;
-            margin: 0%;
-            padding: 0%;
-            /* background-color: rgb(179, 81, 179); */
-        }
-        a.nav{
-            text-decoration: none;
-            display: block;
-            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
-            width: 100px;
-            text-align: center;
-            color:white;
-            padding: 14px 16px;
-        }
-        /* 伪类 */
-        #navigation2 li{
-            /* 设置列表水平 */
-            display: inline;
-            float: left;
-        }
+    <link rel="stylesheet" type="text/css" href="../files/style.css">
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #result {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .header,.container,.footer{
-            /* 左浮动 */
-            float: left;
-            /* 满浏览器 */
-            width: 100%;
-        }
-        .lside{
-            width: 33%;
-            float: left;
-        }
-        .rside{
-            width: 33%;
-            float: right;
-        }
-        /* 左右边距 */
-        .content{
-            margin: 0px 205px;
-        }
-        .lside,.rside,.content{
-            padding: 5px;
-        }
-        .footer{
-            padding: 10px;
-            background: purple;
-            text-align: left;
-        }
-        .footer_left{
-            width: 33%;
-            float: left;
-        }
-        .footer_right{
-            width: 33%;
-            float: right;
-        }
-        .footer_center{
-            float: center;
-        }
-        @media screen and (max-width:700px){
-            .lside,.rside,.content,.footer_left,.footer_right,.footer_center{
-                width: 100%;
-                margin: 0px;
-            }
-        }
-        
-    </style>
 </head>
 <body>
     <header>
@@ -166,80 +54,20 @@
 
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <center><p id="底线">--毕业生是有底线的--</p></center>
-    <div class="footer">
-        <div class="footer_left">
-            <a name="快速链接"></a>
-            <strong><font color="white">快速链接</font></strong>
-            <br/>
-            <a href="https://azkbbys.github.io" target="_blank">
-                <font color="white" size="2">首页</font>
-            </a>
-        </div>
-        <div class="footer_right">
-            <a name="其它信息"></a>
-            <strong><font color="white">其它信息</font></strong>
-            <br/>
-            <a herf="javascript:;" onclick="jsalert('本网页下的所有内容均为原创\n抄袭必究')"><font color="white" size="2">原创声明</font></a>
-            <br/>
-            <font id="uptime" color="white" size="2"></font>
-        </div>
-        <div class="footer_center">
-            <a name="友情链接"></a>
-            <strong><font color="white">友情链接</font></strong>
-            <br/>
-            <a href="https://shequ.codemao.cn" target="_blank">
-                <font color="white" size="2">编程猫社区</font>
-            </a>
-        </div>
-        <br/>
-        <br/>
-        <center><strong><font color="white">copyright © 阿兹卡班毕业生</font></strong></center>
-    </div>
-
     <script type="text/javascript">
-        copyInnerTextOfCell = (event) => {
-            let innerText = 'https://azkbbys.github.io';
-            var tmpInput = document.createElement('input');
-            document.body.appendChild(tmpInput);
-            tmpInput.value = innerText;
-            tmpInput.select();
-            document.execCommand('copy')
-            tmpInput.remove();
-            alert('复制成功！内容：' + innerText)
-        }
-
-        function updateUptime() {
-            var launchDate = new Date(2023, 7, 7, 22, 14, 8); // 设置上线时间，年份、月份、日期、小时、分钟、秒钟
-            var currentDate = new Date();
-
-            var timeDiff = currentDate.getTime() - launchDate.getTime();
-            var seconds = Math.floor(timeDiff / 1000) % 60;
-            var minutes = Math.floor(timeDiff / (1000 * 60)) % 60;
-            var hours = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
-            var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-            var uptimeString = '网站已上线' + days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
-            document.getElementById("uptime").textContent = uptimeString;
-        }
-        setInterval(updateUptime, 1000); // 每秒钟更新一次上线时间
-
         function jsalert(text) {
             alert(text)
         };
     </script>
-
-    <style type="text/css">
-        /* 背景 */
+    <style>
     	body{
-            cursor:url('../files/bg.png'),auto;
     	    background: url("../files/bg.png") no-repeat center center fixed;
-                    /*兼容浏览器版本*/
-                    -webkit-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
+            /*兼容浏览器版本*/
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            cursor: url("../files/mouse.ico"),auto;
     	}
-        /* 鼠标 */
-        head{cursor:url(../files/mouse.ico),auto}
     </style>
 </body>
 </html>

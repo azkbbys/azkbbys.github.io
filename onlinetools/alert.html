@@ -9,6 +9,30 @@
 </head>
 <body>
     <style>
+         #navigation2{
+            list-style-type:none;
+            /*↑移除列表前小标志*/
+            overflow: hidden;
+            margin: 0%;
+            padding: 0%;
+            /* background-color: rgb(179, 81, 179); */
+        }
+        a.nav{
+            text-decoration: none;
+            display: block;
+            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+            width: 100px;
+            text-align: center;
+            color:white;
+            padding: 14px 16px;
+        }
+        /* 伪类 */
+        #navigation2 li{
+            /* 设置列表水平 */
+            display: inline;
+            float: left;
+        }
+
         header {
             position: fixed;
             top: 0;
@@ -20,19 +44,6 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-        }
-
-        body {
-            background-image: url("https://azkbbys.github.io/files/bg.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: #ffffff;
-            padding: 20px;
-            margin-top: 60px;
         }
 
         h1 {
@@ -51,19 +62,63 @@
 
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #8e24c4;
             color: white;
             border: none;
-            cursor: pointer;
+            cursor: url(https://azkbbys.github.io/files/mouse.ico),auto;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #5f078a;
         }
 
         #result {
             font-size: 18px;
             font-weight: bold;
+        }
+
+        .header,.container,.footer{
+            /* 左浮动 */
+            float: left;
+            /* 满浏览器 */
+            width: 100%;
+        }
+        .lside{
+            width: 33%;
+            float: left;
+        }
+        .rside{
+            width: 33%;
+            float: right;
+        }
+        /* 左右边距 */
+        .content{
+            margin: 0px 205px;
+        }
+        .lside,.rside,.content{
+            padding: 5px;
+        }
+        .footer{
+            padding: 10px;
+            background: purple;
+            text-align: left;
+        }
+        .footer_left{
+            width: 33%;
+            float: left;
+        }
+        .footer_right{
+            width: 33%;
+            float: right;
+        }
+        .footer_center{
+            float: center;
+        }
+        @media screen and (max-width:700px){
+            .lside,.rside,.content,.footer_left,.footer_right,.footer_center{
+                width: 100%;
+                margin: 0px;
+            }
         }
     </style>
 
@@ -95,6 +150,7 @@
         // }
         function GetRequest(){
             var url = location.search;
+            console.log(url)
             var theRequest = new Object();
             if(url.indexOf("?")!=-1){
                 var str = url.substr(1);
@@ -113,17 +169,15 @@
         }
         alert(GetAlertStr())
     </script>
-    <style type="text/css">
+    <style>
     	body{
-            cursor:url('../files/bg.png'),auto;
-    		background: url("../files/bg.png") no-repeat center center fixed;
-                    /*兼容浏览器版本*/
-                    -webkit-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover;
+    	    background: url("../files/bg.png") no-repeat center center fixed;
+            /*兼容浏览器版本*/
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            cursor: url("../files/mouse.ico"),auto;
     	}
-        /* 鼠标 */
-        head{cursor:url(../files/mouse.ico),auto}
     </style>
 </body>
 </html>

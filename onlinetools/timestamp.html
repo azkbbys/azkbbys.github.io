@@ -7,12 +7,30 @@
     <title>在线日期时间转时间戳|在线工具|阿兹卡班毕业生</title>
     <link rel="icon" type="image/x-icon" href="https://azkbbys.github.io/favicon.ico">
     <style>
-        /* 新增的样式 */
-        body {
-            color: purple;
+        #navigation2{
+            list-style-type:none;
+            /*↑移除列表前小标志*/
+            overflow: hidden;
+            margin: 0%;
+            padding: 0%;
+            /* background-color: rgb(179, 81, 179); */
+        }
+        a.nav{
+            text-decoration: none;
+            display: block;
+            /* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+            width: 100px;
+            text-align: center;
+            color:white;
+            padding: 14px 16px;
+        }
+        /* 伪类 */
+        #navigation2 li{
+            /* 设置列表水平 */
+            display: inline;
+            float: left;
         }
 
-        /* 其他样式保持不变 */
         header {
             position: fixed;
             top: 0;
@@ -24,19 +42,6 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-        }
-
-        body {
-            background-image: url("https://azkbbys.github.io/files/bg.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: #ffffff;
-            padding: 20px;
-            margin-top: 60px;
         }
 
         h1 {
@@ -55,19 +60,63 @@
 
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #8e24c4;
             color: white;
             border: none;
-            cursor: pointer;
+            cursor: url(https://azkbbys.github.io/files/mouse.ico),auto;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #5f078a;
         }
 
         #result {
             font-size: 18px;
             font-weight: bold;
+        }
+
+        .header,.container,.footer{
+            /* 左浮动 */
+            float: left;
+            /* 满浏览器 */
+            width: 100%;
+        }
+        .lside{
+            width: 33%;
+            float: left;
+        }
+        .rside{
+            width: 33%;
+            float: right;
+        }
+        /* 左右边距 */
+        .content{
+            margin: 0px 205px;
+        }
+        .lside,.rside,.content{
+            padding: 5px;
+        }
+        .footer{
+            padding: 10px;
+            background: purple;
+            text-align: left;
+        }
+        .footer_left{
+            width: 33%;
+            float: left;
+        }
+        .footer_right{
+            width: 33%;
+            float: right;
+        }
+        .footer_center{
+            float: center;
+        }
+        @media screen and (max-width:700px){
+            .lside,.rside,.content,.footer_left,.footer_right,.footer_center{
+                width: 100%;
+                margin: 0px;
+            }
         }
     </style>
 </head>
@@ -76,11 +125,12 @@
     <header>
         <a href="https://azkbbys.github.io">主页>></a><a href="https://azkbbys.github.io/onlinetools">在线工具>></a><a href="https://azkbbys.github.io/onlinetools/timestamp.html">在线日期时间转时间戳</a>
     </header>
-    <h1>日期时间转时间戳</h1>
+    <center><h1>日期时间转时间戳</h1></center>
     <label for="datetime">输入日期时间：</label>
     <input type="datetime-local" id="datetime">
     <button onclick="convertToTimestamp()">转换</button>
     <p id="result"></p>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <script>
         function convertToTimestamp() {
             const inputElement = document.getElementById("datetime");
@@ -97,6 +147,15 @@
             }
         }
     </script>
+    <style>
+    	body{
+    	    background: url("../files/bg.png") no-repeat center center fixed;
+            /*兼容浏览器版本*/
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            cursor: url("../files/mouse.ico"),auto;
+    	}
+    </style>
 </body>
-
 </html>

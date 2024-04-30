@@ -1,0 +1,117 @@
+@font-face {
+	font-family: 'YouSheBiaoTiHei';
+	src: url('./腾讯字体字体包.ttf');
+}
+#navigation2{
+	list-style-type:none;
+	/*↑移除列表前小标志*/
+	overflow: hidden;
+	margin: 0%;
+	padding: 0%;
+	/* background-color: rgb(179, 81, 179); */
+}
+a.nav{
+	text-decoration: none;
+	display: block;
+	/* ↑显示块元素的链接，让整体变为可点击的链接区域 */
+	width: 100px;
+	text-align: center;
+	color:white;
+	padding: 14px 16px;
+}
+/* 伪类 */
+#navigation2 li{
+	/* 设置列表水平 */
+	display: inline;
+	float: left;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgba(218, 4, 225, 0.2);
+	backdrop-filter: blur(20px);
+	padding: 10px 0;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+h1 {
+	margin-bottom: 20px;
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+input {
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+button {
+	padding: 10px 20px;
+	background-color: #8e24c4;
+	color: white;
+	border: none;
+	cursor: url(./mouse.ico),auto;
+}
+
+button:hover {
+	background-color: #5f078a;
+}
+
+#result {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.header,.container,.footer{
+	/* 左浮动 */
+	float: left;
+	/* 满浏览器 */
+	width: 100%;
+}
+.lside{
+	width: 50%;
+	float: left;
+}
+.rside{
+	width: 50%;
+	float: right;
+}
+.third{
+	width: 100%;
+}
+/* .lside,.rside,.content{
+	padding: 5px;
+} */
+.footer{
+	padding: 10px;
+	width: 100%;
+	background: purple;
+	text-align: left;
+	backdrop-filter: blur(10px);
+	opacity: 70%;
+}
+.footer_left{
+	width: 33%;
+	float: left;
+}
+.footer_right{
+	width: 33%;
+	float: right;
+}
+.footer_center{
+	float: center;
+}
+@media screen and (max-width:700px){
+	.lside,.rside,.content,.footer_left,.footer_right,.footer_center{
+		width: 100%;
+		margin: 0px;
+	}
+}
