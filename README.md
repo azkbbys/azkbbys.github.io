@@ -1,10 +1,8 @@
 ![Star History Chart](https://api.star-history.com/svg?repos=azkbbys/azkbbys.github.io&type=Date)
 选择一个语言|選擇一個語言|Select a language.
-
 - [简体中文](#简体中文)
 - [繁体中文](#繁体中文)
 - [English](#english)
-
 ### 简体中文
 
 # 阿兹卡班毕业生的官网
@@ -15,7 +13,7 @@
 
 ## 网站链接
 
-[https://newazkbbys.github.io](https://newazkbbys.github.io)
+[https://azkbbys.github.io](https://azkbbys.github.io)
 
 ## 网站包含的内容：
 
@@ -27,13 +25,7 @@
 
 ## 更新日志
 
-勤快的毕业生已经将网站的更新日志做成网页啦~[点击这里](https://newazkbbys.github.io/update_log.html)即可查看！
-
-## 说明
-
-你看，为什么网址前面有个“new”呢？~~因为我的github用户名前面就有个new~~因为它还有一个“old”[戳我去查看](https://azkbbys.github.io)，不过那个“old”已经停止更新。
-
-那为什么停止更新呢？~~因为毕业生懒~~因为[azkbbys](https://github.com/azkbbys)这个账号需要2FA验证，而我验证不了，所以新注册了一个账号来继续更新网站！
+勤快的毕业生已经将网站的更新日志做成网页啦~[点击这里](https://azkbbys.github.io/update_log.html)即可查看！
 
 ## 声明
 
@@ -51,7 +43,7 @@
 
 ## 網站鏈接
 
-[https://newazkbbys.github.io](https://newazkbbys.github.io)
+[https://azkbbys.github.io](https://azkbbys.github.io)
 
 ## 網站包含的內容：
 
@@ -63,13 +55,7 @@
 
 ## 更新日誌
 
-勤快的畢業生已經將網站的更新日誌做成網頁啦~[點擊這裏](https://newazkbbys.github.io/update_log.html)即可查看！
-
-## 說明
-
-你看，為什麽網址前面有個「new」呢？~~因為我的github用戶名前面就有個new~~因為它還有一個「old」[戳我去查看](https://azkbbys.github.io)，不過那個「old」已經停止更新。
-
-那為什麽停止更新呢？~~因為畢業生懶~~因為[azkbbys](https://github.com/azkbbys)這個賬號需要2FA驗證，而我驗證不了，所以新註冊了一個賬號來繼續更新網站！
+勤快的畢業生已經將網站的更新日誌做成網頁啦~[點擊這裏](https://azkbbys.github.io/update_log.html)即可查看！
 
 ## 聲明
 
@@ -89,7 +75,7 @@ This is the biggest site I've ever made, I hope you like it, and if you can, can
 
 ## Website Links
 
-[https://newazkbbys.github.io](https://newazkbbys.github.io)
+[https://azkbbys.github.io](https://azkbbys.github.io)
 
 ## What's included in the site:
 
@@ -102,12 +88,6 @@ This is the biggest site I've ever made, I hope you like it, and if you can, can
 ## Changelog
 
 Diligent Azkbbys has made the update log of the website into a web page~ [Click here](https://newazkbbys.github.io/update_log.html) to view!
-
-## Description
-
-Look, why is there a "new" in front of the URL? ~~Because my github username has a new~~ in front of it because it also has an "old" [poke me to check](https://azkbbys.github.io), but that "old" has stopped updating.
-
-So why stop updating? ~~Because Azkbbys is lazy~~ Because the account of [azkbbys](https://github.com/azkbbys) requires 2FA verification, and I can't verify it, so I registered a new account to continue updating the website!
 
 ## Declaration
 
