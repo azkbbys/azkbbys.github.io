@@ -87,7 +87,7 @@ This is the biggest site I've ever made, I hope you like it, and if you can, can
 
 ## Changelog
 
-Diligent Azkbbys has made the update log of the website into a web page~ [Click here](https://newazkbbys.github.io/update_log.html) to view!
+Diligent Azkbbys has made the update log of the website into a web page~ [Click here](https://azkbbys.github.io/update_log.html) to view!
 
 ## Declaration
 
