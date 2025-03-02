@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'YouSheBiaoTiHei';
-	src: url('./腾讯字体字体包.ttf');
+	src: url('./腾讯字体字体包.ttf')!important;
 }
 #navigation2{
 	list-style-type:none;
