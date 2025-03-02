@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <link rel="SHORTCUT ICON" href="../favicon.ico">
+    <link rel="bookmark" type="image/x-icon" href="../favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../files/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damascus: A Heavenly City Where History Meets Modernity</title>
+    <style type="text/css">
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div class="spinner"></div>
+        <p>美好正在加载</p>
+    </div>
+    <header>
+        <strong>Damascus: A Heavenly City Where History Meets Modernity</strong>
+    </header>
+    <br/><br/><br/>
+    <div class="header">
+        <center><h1>A Trip to Damascus</h1></center>
+    </div>
+    <div class="container">
+        <div class="text">
+            <p>
+                If there is a paradise on Earth, Damascus would definitely be one of them. A short flight will take you to this amazing place in the heart of Damascus.
+            </p>
+            <p>
+                On the first day, you can take a walk through the famous Straight Street in Damascus. The old buildings along the street will give you a strong sense of history. Not far from the street, you’ll find the Great Mosque of Umayyad, which will make you feel like you’ve traveled back in time to its golden age.
+            </p>
+            <p>
+                The next day, you can continue your walk. Damascus is a very open and welcoming city, where people of different religions live together. You can see different churches and people gathering on the streets. Walking down Straight Street in Damascus is an experience you’ll never forget.
+            </p>
+            <p>
+                Damascus is also a great place for action movie fans. If you’re brave enough, you can even see some exciting scenes in the suburbs. Damascus is a unique place where you can feel the energy of adventure!
+            </p>
+            <p>
+                Even though Damascus has faced challenges, the city is still beautiful, and the people are full of hope and positivity. As you walk around, you’ll see smiling faces everywhere. This is Damascus—a city with a rich culture and happy people. You’ll fall in love with it.
+            </p>
+            <p>
+                This trip is special, so don’t miss it! I’ll always wonder if you knew how amazing it could be. This trip is perfect, so why not make it happen? Sign up for your dream journey today!
+            </p>
+            <p>
+                Welcome to Damascus!
+            </p>
+        </div>
+    </div>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <center><p id="底线"><font color="white">--azkbbys是有底线的--</font></p></center>
+    <div class="footer">
+        <div class="footer_left">
+            <a name="快速链接"></a>
+            <strong><font color="white">快速链接</font></strong>
+            <br/>
+            <a href="https://shequ.codemao.cn/user/11952313" target="_blank">
+                <font color="white" size="2">个人中心</font>
+            </a>
+            <br/>
+            <a href="https://shequ.codemao.cn/work_shop/20325" target="_blank">
+                <font color="white" size="2">阿兹卡班社区</font>
+            </a>
+        </div>
+        <div class="footer_right">
+            <a name="其它信息"></a>
+            <strong><font color="white">其它信息</font></strong>
+            <br/>
+            <a href="https://icp.gov.moe/?keyword=20230423" target="_blank">
+                <font color="white" size="2">萌ICP备20230423号</font>
+            </a>
+            <br/>
+            <a href="https://github.com/azkbbys/azkbbys.github.io/actions/runs/7430066646"><font id="uptime" color="white" size="2"></font></a>
+        </div>
+        <div class="footer_center">
+            <a name="友情链接"></a>
+            <strong><font color="white">友情链接</font></strong>
+            <br/>
+            <a href="https://shequ.codemao.cn" target="_blank">
+                <font color="white" size="2">编程猫社区</font>
+            </a>
+        </div>
+        <br/>
+        <strong><font color="white" size="3">历史上的今天</font></strong>
+        <font color="white" size="2"><div id="historytoday"></div></font>
+        <br/>
+        <br/>
+        <center><strong><font color="white">copyright © 阿兹卡班毕业生</font></strong></center>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+        var fullscreen=false
+        //进入全屏
+        function enterFullScreen() {
+            var de = document.documentElement;
+            if (de.requestFullscreen) {
+                de.requestFullscreen();
+            } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+            } else if (de.webkitRequestFullScreen) {
+                de.webkitRequestFullScreen();
+            }
+            fullscreen=true
+        }
+        //退出全屏
+        function exitFullScreen() {
+            var de = document;
+            if (de.exitFullscreen) {
+                de.exitFullscreen();
+            } else if (de.mozCancelFullScreen) {
+                de.mozCancelFullScreen();
+            } else if (de.webkitCancelFullScreen) {
+                de.webkitCancelFullScreen();
+            }
+            fullscreen=false
+        }
+        function FullScreen() {
+            if(fullscreen){
+                exitFullScreen()
+            }else{
+                enterFullScreen()
+            }
+        }
+        copyInnerTextOfCell = (event) => {
+            let innerText = 'https://azkbbys.github.io';
+            var tmpInput = document.createElement('input');
+            document.body.appendChild(tmpInput);
+            tmpInput.value = innerText;
+            tmpInput.select();
+            document.execCommand('copy')
+            tmpInput.remove();
+            alert('复制成功！内容：' + innerText)
+        }
+
+        function updateUptime() {
+            var launchDate = new Date(2023, 3, 4, 22, 14, 8); // 设置上线时间，年份、月份、日期、小时、分钟、秒钟
+            var currentDate = new Date();
+
+            var timeDiff = currentDate.getTime() - launchDate.getTime();
+            var seconds = Math.floor(timeDiff / 1000) % 60;
+            var minutes = Math.floor(timeDiff / (1000 * 60)) % 60;
+            var hours = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
+            var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+            var uptimeString = '网站已上线' + days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+            document.getElementById("uptime").textContent = uptimeString;
+        }
+        setInterval(updateUptime, 1000); // 每秒钟更新一次上线时间
+
+        function jsalert(text) {
+            alert(text)
+        };
+
+        // 历史上的今天
+        $(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    url: "https://api.andeer.top/API/history.php",
+                    dataType: "json",
+                    success: function(response) {
+                        var data = response.data;
+                        $("#historytoday").text(data);
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        body {
+            background: url("./bg.jpg") no-repeat center center fixed;
+            /* 兼容浏览器版本 */
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            cursor: url("../files/mouse.ico"), auto;
+        }
+        .text {
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</body>
+</html>
