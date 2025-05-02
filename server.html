@@ -3,164 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匠魂科技魔法生存 | MC 1.19.2模组服务器</title>
+    <title>方块世界 - 1.21.5高版本纯净生存服</title>
     <style>
         :root {
-            --primary: #00e676; /* 科技绿 */
-            --bg: #1a1a1a;
-            --card-bg: #2d2d2d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            --mc-green: #5B8C3C;
+            --mc-dark: #2D2D2D;
         }
 
         body {
-            background: var(--bg);
-            color: #fff;
+            font-family: 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
+            background: #f0f0f0;
+            color: var(--mc-dark);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         .header {
             text-align: center;
-            padding: 4rem 0;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 3rem;
+            padding: 40px 0;
+            background: linear-gradient(45deg, var(--mc-green), #3A6B1F);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px var(--primary);
+        .mc-font {
+            font-family: 'Minecraft', sans-serif;
+            text-shadow: 2px 2px 0 #000;
         }
 
-        .feature-grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            margin: 3rem 0;
+        .feature-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--mc-green);
+            background: #f8f8f8;
         }
 
-        .feature-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .qq-group {
+        .qgroup {
             text-align: center;
-            padding: 3rem;
-            background: var(--card-bg);
-            border-radius: 8px;
-            margin: 2rem 0;
+            font-size: 1.5em;
+            padding: 20px;
+            background: #FFD700;
+            border-radius: 5px;
+            margin: 20px 0;
         }
 
-        .quote {
-            border-left: 3px solid var(--primary);
-            padding: 1rem 2rem;
-            margin: 2rem 0;
-            font-style: italic;
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--primary);
-            color: #000;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            margin: 1rem 0;
-            transition: opacity 0.3s;
+        .screenshot-gallery img {
+            width: 100%;
+            border: 3px solid var(--mc-dark);
+            border-radius: 5px;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .pixel-divider {
+            height: 4px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--mc-green),
+                var(--mc-green) 10px,
+                #fff 10px,
+                #fff 20px
+            );
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🔥 匠魂科技魔法生存 🔥</h1>
-            <p>Minecraft 1.19.2 | 模组联动 | 永久开放</p>
-            <a href="#join" class="btn">立即加入QQ群</a>
+            <h1 class="mc-font">🔥 方块世界 1.21.5 🔥</h1>
+            <h3>高版本纯净生存服 | 安全畅玩·自由建造·暖心社区</h3>
         </header>
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="icon">⚙️</div>
-                <h3>双核驱动体验</h3>
-                <p>匠魂专家系统 × 科技魔法扩展库</p>
-                <ul>
-                    <li>深度联动：地幔Mantle × 匠魂</li>
-                    <li>科技魔法模组全家桶</li>
-                </ul>
-            </div>
+        <div class="pixel-divider"></div>
 
-            <div class="feature-card">
-                <div class="icon">🛡️</div>
-                <h3>新人护航体系</h3>
-                <ul>
-                    <li>异步区块加载技术</li>
-                    <li>智能配置包开箱即用</li>
-                    <li>实体优化防卡顿</li>
-                </ul>
-            </div>
+        <div class="feature-box">
+            <h2>🎮 特色系统</h2>
+            <ul>
+                <li>✅ <strong>超前版本</strong> - 全网首批1.21.5版本服务器</li>
+                <li>🛡️ <strong>双验证系统</strong> - AuthMe防盗 + 皮肤补丁系统</li>
+                <li>🌟 <strong>非正版友好</strong> - 免forge一键获取正版皮肤</li>
+                <li>⚖️ <strong>绝对公平</strong> - 零氪金/无特权/原版生存</li>
+            </ul>
         </div>
 
-        <div class="qq-group" id="join">
-            <h2>📲 即刻加入开荒！</h2>
-            <div class="icon">👉</div>
-            <p style="font-size: 2rem; color: var(--primary);">QQ群 791635917</p>
+        <div class="screenshot-gallery">
+            <!-- 此处可添加游戏截图 -->
+            <img src="placeholder1.jpg" alt="游戏实景1">
+            <img src="placeholder2.jpg" alt="游戏实景2">
+            <img src="placeholder3.jpg" alt="社区活动">
         </div>
 
-        <div class="feature-card">
-            <div class="icon">🔧</div>
-            <h3>技术保障</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="feature-box">
+            <h2>🎁 新人福利</h2>
+            <div style="display: flex; justify-content: space-around;">
                 <div>
-                    <h4>＜80ms延迟</h4>
-                    <p>BGP多线服务器</p>
+                    <h3>🛠️ 新手礼包</h3>
+                    <p>木头 ×64</p>
+                    <p>牛排 ×64</p>
                 </div>
                 <div>
-                    <h4>安全稳定</h4>
-                    <p>每日增量备份 + 反作弊防护</p>
-                </div>
-                <div>
-                    <h4>极致流畅</h4>
-                    <p>专业优化Mod加持</p>
+                    <h3>🏆 活动</h3>
+                    <p>建筑大师赛</p>
+                    <p>生存挑战赛</p>
                 </div>
             </div>
         </div>
 
-        <blockquote class="quote">
-            "从青铜工具到量子熔炉，这里让我重燃MC热情！" —— 工程师Lina的七日记录
-        </blockquote>
+        <div class="qgroup">
+            📢 立即加入：QQ群 791635917
+        </div>
+
+        <div class="feature-box">
+            <h2>📌 必读说明</h2>
+            <ul>
+                <li>⏰ 7×24小时稳定开放</li>
+                <li>🔒 智能反作弊系统全天候守护</li>
+                <li>🆓 完全免费游玩，永不增设氪金内容</li>
+                <li>🎨 独家皮肤系统支持非正版账号</li>
+            </ul>
+        </div>
+
+        <footer style="text-align: center; padding: 20px; color: #666;">
+            <p>© 2025 方块世界服务器 保留所有权利 由树毛虫进行改编</p>
+            <p>本服务器与Mojang AB没有关联</p>
+        </footer>
     </div>
-
-    <footer style="text-align: center; padding: 2rem; border-top: 1px solid #333;">
-        <p>© 2025 匠魂科技魔法生存服务器 | 永久公益运营 丨由树毛虫进行改编</p>
-    </footer>
 </body>
 </html>
