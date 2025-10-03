@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>您已被封禁！</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            background-color: rgba(30, 30, 30, 0.9);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        
+        .warning {
+            color: #ff0000;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        .ban-info {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .name, .who {
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .work {
+            color: #00ff00;
+        }
+        
+        .contact-info {
+            font-size: 1.3rem;
+            margin-top: 40px;
+        }
+        
+        .contact {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @media (max-width: 600px) {
+            .warning {
+                font-size: 1.8rem;
+            }
+            
+            .ban-info, .contact-info {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="warning">您已被封禁！</h1>
+        
+        <div class="ban-info">
+            <span class="name" id="userName">用户名</span>，您已被
+            <span class="who" id="executor">执行人</span>在
+            《<span class="work" id="workName">作品名</span>》中封禁
+        </div>
+        
+        <div class="contact-info">
+            如对此有异议，请使用以下联系方式：
+            <span class="contact" id="contactInfo">联系方式</span>
+        </div>
+        
+        <div class="footer">
+            请注意：在封禁期间，您将无法进入游戏正常游玩。
+        </div>
+    </div>
+
+    <script>
+        // 从URL参数获取封禁信息
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                name: urlParams.get('name') || '未知用户',
+                who: urlParams.get('who') || '管理员',
+                work: urlParams.get('work') || '未知作品',
+                contact: urlParams.get('contact') || '未提供'
+            };
+        }
+        
+        // 更新页面内容
+        function updatePageContent() {
+            const params = getUrlParams();
+            
+            document.getElementById('userName').textContent = params.name;
+            document.getElementById('executor').textContent = params.who;
+            document.getElementById('workName').textContent = params.work;
+            document.getElementById('contactInfo').textContent = params.contact;
+        }
+        
+        // 页面加载时执行
+        window.onload = updatePageContent;
+    </script>
+</body>
+</html>
