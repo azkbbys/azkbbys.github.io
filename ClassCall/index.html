@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
     <title>ClassCall - 教师端</title>
     <style>
         * {
@@ -12,10 +15,12 @@
         }
 
         body {
-            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            font-family: 'Microsoft YaHei', '微软雅黑', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
@@ -27,48 +32,49 @@
         .header {
             background: white;
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .header h1 {
             color: #333;
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .header .subtitle {
             color: #666;
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 13px;
+            margin-top: 3px;
         }
 
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
-            padding: 10px;
+            margin-top: 12px;
+            padding: 10px 12px;
             background: #f8f9fa;
             border-radius: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .status-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             display: inline-block;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
 
         .status-dot.connected {
@@ -87,17 +93,19 @@
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 0.6; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .status-text {
             font-weight: bold;
             color: #333;
+            font-size: 13px;
+            white-space: nowrap;
         }
 
         .server-info {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
         }
 
@@ -105,13 +113,13 @@
         .main-content {
             background: white;
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .section {
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
             background: #fafafa;
             border-radius: 10px;
             border: 1px solid #e0e0e0;
@@ -123,22 +131,18 @@
 
         .section h2 {
             color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #667eea;
-            font-size: 20px;
+            font-size: 17px;
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .section h2 .icon {
-            font-size: 24px;
+            gap: 6px;
         }
 
         /* 表单样式 */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group:last-child {
@@ -147,21 +151,31 @@
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #555;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         select, textarea, input {
             width: 100%;
-            padding: 12px;
+            padding: 10px 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 14px;
             font-family: inherit;
             transition: border-color 0.3s, box-shadow 0.3s;
             background: white;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            padding-right: 35px;
         }
 
         select:focus, textarea:focus, input:focus {
@@ -171,9 +185,10 @@
         }
 
         textarea {
-            height: 120px;
+            height: 100px;
             resize: vertical;
             line-height: 1.6;
+            min-height: 80px;
         }
 
         /* 确认对话框样式 */
@@ -188,6 +203,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .modal-overlay.active {
@@ -197,9 +213,9 @@
         .modal-dialog {
             background: white;
             border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
+            padding: 25px;
+            max-width: 450px;
+            width: 100%;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             animation: modalSlideIn 0.3s ease;
         }
@@ -217,14 +233,15 @@
 
         .modal-dialog h3 {
             color: #f44336;
-            margin-bottom: 15px;
-            font-size: 20px;
+            margin-bottom: 12px;
+            font-size: 18px;
         }
 
         .modal-dialog .modal-content {
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             line-height: 1.6;
+            font-size: 14px;
         }
 
         .modal-dialog .modal-content .highlight {
@@ -248,7 +265,8 @@
             height: 100%;
             z-index: 2000;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 60px;
             pointer-events: none;
         }
 
@@ -260,26 +278,26 @@
             background: #4CAF50;
             color: white;
             border-radius: 10px;
-            padding: 20px 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            animation: toastSlideIn 0.3s ease, toastSlideOut 0.3s ease 1.7s forwards;
+            padding: 16px 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            animation: toastSlideIn 0.3s ease, toastSlideOut 0.3s ease 1.5s forwards;
             text-align: center;
             pointer-events: auto;
         }
 
         .toast-dialog h3 {
-            font-size: 20px;
-            margin-bottom: 5px;
+            font-size: 18px;
+            margin-bottom: 3px;
         }
 
         .toast-dialog p {
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.9;
         }
 
         @keyframes toastSlideIn {
             from {
-                transform: translateY(-50px);
+                transform: translateY(-40px);
                 opacity: 0;
             }
             to {
@@ -294,7 +312,7 @@
                 opacity: 1;
             }
             to {
-                transform: translateY(-50px);
+                transform: translateY(-40px);
                 opacity: 0;
             }
         }
@@ -302,7 +320,7 @@
         /* 按钮样式 */
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
@@ -310,7 +328,7 @@
             background: #667eea;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
@@ -318,7 +336,11 @@
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            gap: 4px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 44px;
         }
 
         .btn:hover {
@@ -329,6 +351,7 @@
 
         .btn:active {
             transform: translateY(0);
+            opacity: 0.8;
         }
 
         .btn:disabled {
@@ -336,6 +359,7 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.6;
         }
 
         .btn-success {
@@ -366,25 +390,26 @@
         }
 
         .btn-sm {
-            padding: 8px 16px;
-            font-size: 12px;
+            padding: 8px 14px;
+            font-size: 13px;
+            min-height: 36px;
         }
 
         /* 在线班级样式 */
         .online-classes {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            min-height: 40px;
+            gap: 8px;
+            min-height: 36px;
             align-items: center;
         }
 
         .class-badge {
             background: #e8eaf6;
             color: #3949ab;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
             font-weight: 500;
             border: 2px solid #c5cae9;
             transition: all 0.3s;
@@ -397,12 +422,6 @@
             animation: fadeIn 0.5s;
         }
 
-        .class-badge.offline {
-            background: #ffcdd2;
-            color: #c62828;
-            border-color: #ef9a9a;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
@@ -411,7 +430,7 @@
         .no-classes {
             color: #999;
             font-style: italic;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* 消息日志 */
@@ -419,31 +438,34 @@
             background: #f5f5f5;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            padding: 15px;
-            max-height: 250px;
+            padding: 10px;
+            max-height: 200px;
             overflow-y: auto;
             font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 13px;
+            font-size: 12px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .log-entry {
-            padding: 6px 10px;
-            margin-bottom: 4px;
+            padding: 5px 8px;
+            margin-bottom: 3px;
             border-radius: 4px;
             display: flex;
             align-items: flex-start;
-            gap: 8px;
+            gap: 6px;
         }
 
         .log-entry .time {
             color: #999;
-            font-size: 12px;
+            font-size: 11px;
             white-space: nowrap;
-            min-width: 70px;
+            min-width: 60px;
+            flex-shrink: 0;
         }
 
         .log-entry .message {
             flex: 1;
+            word-break: break-all;
         }
 
         .log-entry.success {
@@ -471,65 +493,222 @@
             background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
             border: 2px solid #ffb74d;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 18px;
+            margin-bottom: 15px;
         }
 
         .password-section h3 {
             color: #e65100;
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 12px;
+            font-size: 17px;
         }
 
         .password-hint {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
-            margin-top: 8px;
+            margin-top: 6px;
+            line-height: 1.4;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
+        /* 响应式设计 - 手机端 */
+        @media (max-width: 600px) {
             body {
-                padding: 10px;
+                padding: 8px;
             }
             
-            .header, .main-content {
+            .header {
                 padding: 15px;
+                border-radius: 12px;
+                margin-bottom: 10px;
             }
-            
+
             .header h1 {
-                font-size: 24px;
+                font-size: 20px;
             }
-            
-            .btn-group {
-                flex-direction: column;
+
+            .header .subtitle {
+                font-size: 12px;
             }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
+
+            .status-bar {
+                padding: 8px 10px;
+                gap: 6px;
             }
-            
-            .section {
+
+            .status-text {
+                font-size: 12px;
+            }
+
+            .main-content {
                 padding: 15px;
+                border-radius: 12px;
+            }
+
+            .section {
+                padding: 12px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+
+            .section h2 {
+                font-size: 15px;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+            }
+
+            label {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            select, textarea, input {
+                padding: 8px 10px;
+                font-size: 14px;
+                border-radius: 6px;
+            }
+
+            select {
+                padding-right: 30px;
+                background-size: 14px;
+            }
+
+            textarea {
+                height: 80px;
+                min-height: 70px;
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                min-height: 40px;
+                border-radius: 6px;
+            }
+
+            .btn-sm {
+                padding: 7px 12px;
+                font-size: 12px;
+                min-height: 34px;
+            }
+
+            .btn-group {
+                gap: 6px;
+            }
+
+            .btn-group .btn {
+                flex: 1;
+                min-width: calc(50% - 6px);
+            }
+
+            .class-badge {
+                padding: 5px 10px;
+                font-size: 12px;
+                border-radius: 14px;
+            }
+
+            .password-section {
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            .password-section h3 {
+                font-size: 15px;
+                margin-bottom: 10px;
             }
 
             .modal-dialog {
                 padding: 20px;
+                border-radius: 12px;
+                margin: 0 10px;
+            }
+
+            .modal-dialog h3 {
+                font-size: 16px;
+            }
+
+            .modal-dialog .modal-content {
+                font-size: 13px;
+            }
+
+            .modal-buttons .btn {
+                flex: 1;
             }
 
             .toast-dialog {
-                padding: 15px 30px;
+                padding: 14px 24px;
+                border-radius: 8px;
+            }
+
+            .toast-dialog h3 {
+                font-size: 16px;
+            }
+
+            .toast-dialog p {
+                font-size: 12px;
+            }
+
+            .message-log {
+                max-height: 150px;
+                font-size: 11px;
+                padding: 8px;
+            }
+
+            .log-entry {
+                padding: 4px 6px;
+                gap: 4px;
+            }
+
+            .log-entry .time {
+                font-size: 10px;
+                min-width: 50px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+        }
+
+        /* 超小屏幕优化 */
+        @media (max-width: 360px) {
+            .status-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn-group .btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        /* 横屏手机优化 */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .section {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            textarea {
+                height: 60px;
+                min-height: 50px;
+            }
+
+            .message-log {
+                max-height: 100px;
             }
         }
 
         /* 加载动画 */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -537,6 +716,13 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* 安全区域适配 */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            body {
+                padding-bottom: calc(15px + env(safe-area-inset-bottom));
+            }
         }
     </style>
 </head>
@@ -547,7 +733,7 @@
             <h3>警告：群发通知确认</h3>
             <div class="modal-content">
                 <p>您即将向 <span class="highlight">所有在线班级</span> 发送通知，这将在所有教室进行语音播报和弹窗显示。</p>
-                <p style="margin-top: 10px;">请确认这是您想要的操作吗？</p>
+                <p style="margin-top: 8px;">请确认这是您想要的操作吗？</p>
             </div>
             <div class="modal-buttons">
                 <button class="btn btn-warning" onclick="cancelAllClassNotification()">取消</button>
@@ -568,13 +754,13 @@
         <!-- 头部 -->
         <div class="header">
             <h1>ClassCall</h1>
-            <p class="subtitle">教师端 - ClassCall</p>
+            <p class="subtitle">教师端 - 校园通知管理系统</p>
             <div class="status-bar">
                 <div class="status-indicator">
                     <span class="status-dot disconnected" id="statusDot"></span>
                     <span class="status-text" id="statusText">未连接</span>
-                    <span class="server-info" id="serverInfo">110.42.103.198:5605</span>
                 </div>
+                <span class="server-info" id="serverInfo">110.42.103.198:5605</span>
                 <button class="btn btn-sm" onclick="toggleConnection()" id="connectBtn">
                     连接服务器
                 </button>
@@ -591,29 +777,33 @@
                     id="teacherName" 
                     placeholder="例如：张老师"
                     maxlength="20"
+                    autocomplete="name"
                 >
                 <p class="password-hint">
                     此称呼将显示在教室端通知中，例如"张老师：请做好清洁"
                 </p>
             </div>
             <div class="form-group">
-                <label for="passwordInput">请输入管理密码：</label>
+                <label for="passwordInput">管理密码：</label>
                 <input 
                     type="password" 
                     id="passwordInput" 
                     placeholder="请输入教师端密码"
                     onkeypress="if(event.key==='Enter') authenticate()"
+                    autocomplete="current-password"
                 >
                 <p class="password-hint">
-                    密码和称呼将安全保存在浏览器中，下次访问时自动填充
+                    密码和称呼将安全保存在浏览器中，下次自动填充
                 </p>
             </div>
-            <button class="btn btn-success" onclick="authenticate()">
-                验证并连接
-            </button>
-            <button class="btn btn-warning" onclick="clearAllSavedData()" style="margin-left: 10px;">
-                清除所有保存的信息
-            </button>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="authenticate()">
+                    验证并连接
+                </button>
+                <button class="btn btn-warning" onclick="clearAllSavedData()">
+                    清除保存的信息
+                </button>
+            </div>
         </div>
 
         <!-- 主内容区域 -->
@@ -621,7 +811,6 @@
             <!-- 在线班级监控 -->
             <div class="section">
                 <h2>
-                    <span class="icon"></span>
                     在线班级监控
                     <button class="btn btn-sm btn-success" onclick="refreshClasses()" style="margin-left: auto;">
                         刷新
@@ -634,10 +823,7 @@
 
             <!-- 发送通知 -->
             <div class="section">
-                <h2>
-                    <span class="icon"></span>
-                    发送通知
-                </h2>
+                <h2>发送通知</h2>
                 <div class="form-group">
                     <label for="targetClass">目标班级：</label>
                     <select id="targetClass">
@@ -667,7 +853,7 @@
                         发送通知
                     </button>
                     <button class="btn btn-danger" onclick="sendUrgentNotification()">
-                        发送紧急通知
+                        紧急通知
                     </button>
                     <button class="btn btn-warning" onclick="clearForm()">
                         清空内容
@@ -677,19 +863,16 @@
 
             <!-- 快捷通知模板 -->
             <div class="section">
-                <h2>
-                    <span class="icon"></span>
-                    快捷通知模板
-                </h2>
+                <h2>快捷模板</h2>
                 <div class="btn-group">
                     <button class="btn btn-sm" onclick="useTemplate('math')">
-                        叫数学课代表
+                        数学课代表
                     </button>
                     <button class="btn btn-sm" onclick="useTemplate('english')">
-                        叫英语课代表
+                        英语课代表
                     </button>
                     <button class="btn btn-sm" onclick="useTemplate('chinese')">
-                        叫语文课代表
+                        语文课代表
                     </button>
                     <button class="btn btn-sm" onclick="useTemplate('clean')">
                         卫生检查
@@ -700,7 +883,6 @@
             <!-- 消息日志 -->
             <div class="section">
                 <h2>
-                    <span class="icon"></span>
                     操作日志
                     <button class="btn btn-sm" onclick="clearLog()" style="margin-left: auto;">
                         清空日志
@@ -726,13 +908,9 @@
         const COOKIE_NAME_CONTENT = 'teacher_notification_content';
         const COOKIE_DAYS = 365;
         
-        // 当前教师称呼
         let currentTeacherName = '';
-        
-        // 待发送的通知数据（用于确认对话框）
         let pendingNotification = null;
         
-        // ============ 状态管理 ============
         let ws = null;
         let isConnected = false;
         let isConnecting = false;
@@ -743,7 +921,6 @@
         
         // ============ 初始化 ============
         window.onload = function() {
-            console.log('教师端初始化...');
             document.getElementById('serverInfo').textContent = WS_URL.replace('ws://', '');
             
             // 恢复保存的信息
@@ -765,6 +942,13 @@
                 setCookie(COOKIE_NAME_NAME, this.value.trim());
                 currentTeacherName = this.value.trim();
             });
+
+            // 移动端双击禁止缩放
+            document.addEventListener('dblclick', function(e) {
+                if (e.target.tagName === 'BUTTON') {
+                    e.preventDefault();
+                }
+            }, { passive: false });
         };
 
         // ============ Cookie 操作 ============
@@ -773,7 +957,6 @@
             d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
             const expires = "expires=" + d.toUTCString();
             document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/;SameSite=Strict";
-            console.log('Cookie已保存:', name);
         }
 
         function getCookie(name) {
@@ -790,40 +973,30 @@
 
         function deleteCookie(name) {
             document.cookie = name + '=; Max-Age=-99999999; path=/';
-            console.log('Cookie已删除:', name);
         }
 
         // ============ 数据保存和恢复 ============
         function saveFormData() {
-            const targetClass = document.getElementById('targetClass').value;
-            const notificationType = document.getElementById('notificationType').value;
-            const content = document.getElementById('notificationContent').value;
-            
-            setCookie(COOKIE_NAME_TARGET, targetClass);
-            setCookie(COOKIE_NAME_TYPE, notificationType);
-            setCookie(COOKIE_NAME_CONTENT, content);
+            setCookie(COOKIE_NAME_TARGET, document.getElementById('targetClass').value);
+            setCookie(COOKIE_NAME_TYPE, document.getElementById('notificationType').value);
+            setCookie(COOKIE_NAME_CONTENT, document.getElementById('notificationContent').value);
         }
 
         function restoreSavedData() {
-            // 恢复称呼
             const savedName = getCookie(COOKIE_NAME_NAME);
             if (savedName) {
                 document.getElementById('teacherName').value = savedName;
                 currentTeacherName = savedName;
             }
             
-            // 恢复密码
             const savedPassword = getCookie(COOKIE_NAME_PASSWORD);
             if (savedPassword) {
                 document.getElementById('passwordInput').value = savedPassword;
             }
             
-            // 恢复表单数据
             restoreFormData();
             
-            // 如果有密码和称呼，自动连接
             if (savedPassword && savedName) {
-                console.log('发现保存的认证信息，自动连接...');
                 authenticate();
             }
         }
@@ -833,11 +1006,9 @@
             const savedType = getCookie(COOKIE_NAME_TYPE);
             const savedContent = getCookie(COOKIE_NAME_CONTENT);
             
-            // 延迟恢复，等待下拉框填充完成
             setTimeout(() => {
                 if (savedTarget) {
                     const targetSelect = document.getElementById('targetClass');
-                    // 检查选项是否存在
                     for (let i = 0; i < targetSelect.options.length; i++) {
                         if (targetSelect.options[i].value === savedTarget) {
                             targetSelect.value = savedTarget;
@@ -872,12 +1043,10 @@
                 return;
             }
             
-            // 保存到cookie
             setCookie(COOKIE_NAME_PASSWORD, password);
             setCookie(COOKIE_NAME_NAME, teacherName);
             currentTeacherName = teacherName;
             
-            // 连接WebSocket
             connectWebSocket(password, teacherName);
         }
 
@@ -907,10 +1076,7 @@
 
         // ============ WebSocket 连接管理 ============
         function connectWebSocket(password, teacherName) {
-            if (isConnected || isConnecting) {
-                console.log('已连接或正在连接中...');
-                return;
-            }
+            if (isConnected || isConnecting) return;
             
             isConnecting = true;
             updateConnectionStatus('connecting');
@@ -920,26 +1086,20 @@
                 ws = new WebSocket(WS_URL);
                 
                 ws.onopen = function() {
-                    console.log('WebSocket连接成功');
                     isConnected = true;
                     isConnecting = false;
                     reconnectAttempts = 0;
                     updateConnectionStatus('connected');
                     addLog('WebSocket连接成功', 'success');
                     
-                    // 发送认证消息（包含教师称呼）
-                    const authMessage = {
+                    ws.send(JSON.stringify({
                         type: 'auth_teacher',
                         password: password,
                         teacher_name: teacherName
-                    };
-                    ws.send(JSON.stringify(authMessage));
-                    console.log('发送认证消息:', teacherName);
+                    }));
                     
-                    // 启动心跳
                     startHeartbeat();
                     
-                    // 隐藏密码区域，显示主内容
                     document.getElementById('passwordSection').style.display = 'none';
                     document.getElementById('mainContent').style.display = 'block';
                 };
@@ -947,22 +1107,18 @@
                 ws.onmessage = function(event) {
                     try {
                         const data = JSON.parse(event.data);
-                        console.log('收到消息:', data);
                         handleMessage(data);
                     } catch (e) {
-                        console.error('消息解析失败:', e, event.data);
                         addLog('消息解析失败', 'error');
                     }
                 };
                 
-                ws.onerror = function(error) {
-                    console.error('WebSocket错误:', error);
+                ws.onerror = function() {
                     isConnecting = false;
-                    addLog('WebSocket连接发生错误', 'error');
+                    addLog('WebSocket连接错误', 'error');
                 };
                 
                 ws.onclose = function(event) {
-                    console.log('WebSocket连接关闭:', event.code, event.reason);
                     isConnected = false;
                     isConnecting = false;
                     updateConnectionStatus('disconnected');
@@ -971,10 +1127,9 @@
                     if (event.code !== 1000) {
                         addLog('连接断开 (代码: ' + event.code + ')', 'warning');
                         
-                        // 自动重连
                         if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
                             const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
-                            addLog((delay/1000) + '秒后尝试重连...', 'info');
+                            addLog((delay/1000) + '秒后重连...', 'info');
                             
                             if (reconnectTimer) clearTimeout(reconnectTimer);
                             reconnectTimer = setTimeout(() => {
@@ -996,7 +1151,6 @@
                     }
                 };
             } catch (e) {
-                console.error('创建WebSocket失败:', e);
                 isConnecting = false;
                 addLog('创建连接失败: ' + e.message, 'error');
             }
@@ -1043,7 +1197,6 @@
             heartbeatTimer = setInterval(() => {
                 if (ws && ws.readyState === WebSocket.OPEN) {
                     ws.send(JSON.stringify({ type: 'ping' }));
-                    console.log('发送心跳');
                 }
             }, 30000);
         }
@@ -1117,17 +1270,14 @@
                 
                 case 'success':
                     addLog('[OK] ' + data.message, 'success');
-                    // 显示发送成功弹窗
                     showSuccessToast(data.message);
                     break;
                 
                 case 'pong':
-                    console.log('收到心跳响应');
                     break;
                 
                 default:
-                    console.log('未知消息类型:', data);
-                    addLog('收到未知类型消息: ' + data.type, 'warning');
+                    addLog('收到未知消息: ' + data.type, 'warning');
             }
         }
 
@@ -1135,21 +1285,17 @@
         function updateOnlineClasses(classes) {
             const container = document.getElementById('onlineClasses');
             const select = document.getElementById('targetClass');
-            
-            // 保存当前选择的值
             const currentValue = select.value;
             
-            // 更新显示
             if (!classes || classes.length === 0) {
                 container.innerHTML = '<span class="no-classes">暂无班级在线</span>';
             } else {
                 container.innerHTML = classes.map(c => 
-                    '<span class="class-badge online"> ' + c + '</span>'
+                    '<span class="class-badge online">' + c + '</span>'
                 ).join('');
                 addLog('在线班级: ' + classes.join(', '), 'info');
             }
             
-            // 更新下拉选择框 - 先添加具体班级，最后添加"所有在线班级"
             select.innerHTML = '';
             if (classes && classes.length > 0) {
                 classes.forEach(c => {
@@ -1160,7 +1306,6 @@
                 });
             }
             
-            // 在最后添加"所有在线班级"选项
             const allOption = document.createElement('option');
             allOption.value = 'all';
             allOption.textContent = '所有在线班级（慎重选择！）';
@@ -1168,7 +1313,6 @@
             allOption.style.fontWeight = 'bold';
             select.appendChild(allOption);
             
-            // 恢复之前的选择
             if (currentValue) {
                 for (let i = 0; i < select.options.length; i++) {
                     if (select.options[i].value === currentValue) {
@@ -1177,7 +1321,6 @@
                     }
                 }
             } else {
-                // 尝试从cookie恢复
                 restoreFormData();
             }
         }
@@ -1185,9 +1328,9 @@
         function refreshClasses() {
             if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify({ type: 'ping' }));
-                addLog('已请求刷新在线班级列表', 'info');
+                addLog('已请求刷新班级列表', 'info');
             } else {
-                addLog('未连接到服务器，无法刷新', 'warning');
+                addLog('未连接到服务器', 'warning');
             }
         }
 
@@ -1199,10 +1342,9 @@
             toastMessage.textContent = message || '通知已成功发送';
             toast.classList.add('active');
             
-            // 2秒后自动关闭
             setTimeout(() => {
                 toast.classList.remove('active');
-            }, 2000);
+            }, 1800);
         }
 
         // ============ 发送通知 ============
@@ -1221,7 +1363,6 @@
                 return;
             }
             
-            // 如果选择了"所有在线班级"，弹出确认对话框
             if (targetClass === 'all') {
                 pendingNotification = {
                     targetClass: targetClass,
@@ -1229,18 +1370,15 @@
                     content: content
                 };
                 
-                // 更新确认按钮事件
                 document.getElementById('confirmAllClassBtn').onclick = function() {
                     executeSendNotification(pendingNotification);
                     closeConfirmModal();
                 };
                 
-                // 显示确认对话框
                 document.getElementById('confirmModal').classList.add('active');
                 return;
             }
             
-            // 单个班级直接发送
             executeSendNotification({
                 targetClass: targetClass,
                 notificationType: notificationType,
@@ -1269,11 +1407,7 @@
                 const targetName = notificationData.targetClass === 'all' ? '所有在线班级' : notificationData.targetClass;
                 addLog('[发送] ' + currentTeacherName + ' - ' + typeNames[notificationData.notificationType] + '到 ' + targetName, 'success');
                 
-                // 显示发送成功弹窗
-                showSuccessToast('通知已成功发送到 ' + targetName);
-                
-                // 不保存空内容，保持当前内容不变
-                // 注意：不清空表单内容
+                showSuccessToast('已发送到 ' + targetName);
             } catch (e) {
                 addLog('发送失败: ' + e.message, 'error');
             }
@@ -1298,22 +1432,10 @@
         // ============ 快捷模板 ============
         function useTemplate(type) {
             const templates = {
-                'math': {
-                    type: 'notice',
-                    content: '请数学课代表去办公室'
-                },
-                'english': {
-                    type: 'notice',
-                    content: '请英语课代表去办公室'
-                },
-                'chinese': {
-                    type: 'notice',
-                    content: '请语文课代表去办公室'
-                },
-                'clean': {
-                    type: 'announcement',
-                    content: '请安排清洁'
-                }
+                'math': { type: 'notice', content: '请数学课代表去办公室' },
+                'english': { type: 'notice', content: '请英语课代表去办公室' },
+                'chinese': { type: 'notice', content: '请语文课代表去办公室' },
+                'clean': { type: 'announcement', content: '请各班级做好教室卫生打扫工作，下午将进行检查。' }
             };
             
             const template = templates[type];
@@ -1328,9 +1450,9 @@
         
         function getTemplateName(type) {
             const names = {
-                'math': '叫数学课代表',
-                'english': '叫英语课代表',
-                'chinese': '叫语文课代表',
+                'math': '数学课代表',
+                'english': '英语课代表',
+                'chinese': '语文课代表',
                 'clean': '卫生检查'
             };
             return names[type] || type;
@@ -1340,7 +1462,6 @@
         function clearForm() {
             document.getElementById('notificationContent').value = '';
             updateCharCount();
-            // 清空内容cookie
             setCookie(COOKIE_NAME_CONTENT, '');
             addLog('内容已清空', 'info');
         }
@@ -1350,14 +1471,7 @@
             const count = document.getElementById('charCount');
             const length = textarea.value.length;
             count.textContent = length;
-            
-            if (length > 400) {
-                count.style.color = '#f44336';
-            } else if (length > 300) {
-                count.style.color = '#FF9800';
-            } else {
-                count.style.color = '#999';
-            }
+            count.style.color = length > 400 ? '#f44336' : length > 300 ? '#FF9800' : '#999';
         }
 
         // ============ 日志管理 ============
@@ -1373,12 +1487,9 @@
                 '<span class="time">' + time + '</span>' +
                 '<span class="message">' + message + '</span>';
             
-            // 插入到最前面
             logDiv.insertBefore(entry, logDiv.firstChild);
             
-            // 限制日志数量
-            const maxLogs = 100;
-            while (logDiv.children.length > maxLogs) {
+            while (logDiv.children.length > 100) {
                 logDiv.removeChild(logDiv.lastChild);
             }
         }
@@ -1394,25 +1505,18 @@
 
         // ============ 页面关闭处理 ============
         window.onbeforeunload = function() {
-            // 保存表单数据
             saveFormData();
-            
-            if (isConnected) {
-                disconnect();
-            }
+            if (isConnected) disconnect();
         };
 
         // ============ 键盘快捷键 ============
         document.addEventListener('keydown', function(event) {
-            // Ctrl+Enter 发送通知
             if (event.ctrlKey && event.key === 'Enter') {
                 event.preventDefault();
                 sendNotification();
             }
             
-            // Escape 清空表单或关闭弹窗
             if (event.key === 'Escape') {
-                // 先检查是否有打开的确认弹窗
                 const modal = document.getElementById('confirmModal');
                 if (modal.classList.contains('active')) {
                     cancelAllClassNotification();
@@ -1420,12 +1524,15 @@
             }
         });
 
-        // ============ 点击弹窗外部关闭 ============
+        // ============ 弹窗外部点击关闭 ============
         document.getElementById('confirmModal').addEventListener('click', function(event) {
             if (event.target === this) {
                 cancelAllClassNotification();
             }
         });
+
+        // 移动端触摸优化
+        document.addEventListener('touchstart', function() {}, { passive: true });
     </script>
 </body>
 </html>
