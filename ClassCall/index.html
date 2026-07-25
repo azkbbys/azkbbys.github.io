@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassCall - 教师端</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 头部样式 */
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .status-dot.connected {
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.disconnected {
+            background: #f44336;
+        }
+
+        .status-dot.connecting {
+            background: #FF9800;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .status-text {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .server-info {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section h2 .icon {
+            font-size: 24px;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select, textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: white;
+        }
+
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* 确认对话框样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-dialog h3 {
+            color: #f44336;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .modal-dialog .modal-content {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-dialog .modal-content .highlight {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* 发送成功提示弹窗 */
+        .toast-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .toast-overlay.active {
+            display: flex;
+        }
+
+        .toast-dialog {
+            background: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            padding: 20px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: toastSlideIn 0.3s ease, toastSlideOut 0.3s ease 1.7s forwards;
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .toast-dialog h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .toast-dialog p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toastSlideOut {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        /* 按钮样式 */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:hover {
+            background: #5a6fd6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-warning {
+            background: #FF9800;
+        }
+
+        .btn-warning:hover {
+            background: #F57C00;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-danger {
+            background: #f44336;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        /* 在线班级样式 */
+        .online-classes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .class-badge {
+            background: #e8eaf6;
+            color: #3949ab;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 2px solid #c5cae9;
+            transition: all 0.3s;
+        }
+
+        .class-badge.online {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+            animation: fadeIn 0.5s;
+        }
+
+        .class-badge.offline {
+            background: #ffcdd2;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .no-classes {
+            color: #999;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* 消息日志 */
+        .message-log {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .log-entry {
+            padding: 6px 10px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .log-entry .time {
+            color: #999;
+            font-size: 12px;
+            white-space: nowrap;
+            min-width: 70px;
+        }
+
+        .log-entry .message {
+            flex: 1;
+        }
+
+        .log-entry.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .log-entry.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .log-entry.info {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .log-entry.warning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        /* 密码区域 */
+        .password-section {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ffb74d;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .password-section h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .password-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header, .main-content {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+
+            .modal-dialog {
+                padding: 20px;
+            }
+
+            .toast-dialog {
+                padding: 15px 30px;
+            }
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 确认对话框 -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-dialog">
+            <h3>警告：群发通知确认</h3>
+            <div class="modal-content">
+                <p>您即将向 <span class="highlight">所有在线班级</span> 发送通知，这将在所有教室进行语音播报和弹窗显示。</p>
+                <p style="margin-top: 10px;">请确认这是您想要的操作吗？</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-warning" onclick="cancelAllClassNotification()">取消</button>
+                <button class="btn btn-danger" id="confirmAllClassBtn">确认发送</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 发送成功提示弹窗 -->
+    <div class="toast-overlay" id="successToast">
+        <div class="toast-dialog">
+            <h3>已发送</h3>
+            <p id="toastMessage">通知已成功发送</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>ClassCall</h1>
+            <p class="subtitle">教师端 - ClassCall</p>
+            <div class="status-bar">
+                <div class="status-indicator">
+                    <span class="status-dot disconnected" id="statusDot"></span>
+                    <span class="status-text" id="statusText">未连接</span>
+                    <span class="server-info" id="serverInfo">110.42.103.198:5605</span>
+                </div>
+                <button class="btn btn-sm" onclick="toggleConnection()" id="connectBtn">
+                    连接服务器
+                </button>
+            </div>
+        </div>
+
+        <!-- 密码输入区域 -->
+        <div class="password-section" id="passwordSection">
+            <h3>身份验证</h3>
+            <div class="form-group">
+                <label for="teacherName">您的称呼：</label>
+                <input 
+                    type="text" 
+                    id="teacherName" 
+                    placeholder="例如：张老师"
+                    maxlength="20"
+                >
+                <p class="password-hint">
+                    此称呼将显示在教室端通知中，例如"张老师：请做好清洁"
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">请输入管理密码：</label>
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    placeholder="请输入教师端密码"
+                    onkeypress="if(event.key==='Enter') authenticate()"
+                >
+                <p class="password-hint">
+                    密码和称呼将安全保存在浏览器中，下次访问时自动填充
+                </p>
+            </div>
+            <button class="btn btn-success" onclick="authenticate()">
+                验证并连接
+            </button>
+            <button class="btn btn-warning" onclick="clearAllSavedData()" style="margin-left: 10px;">
+                清除所有保存的信息
+            </button>
+        </div>
+
+        <!-- 主内容区域 -->
+        <div class="main-content" id="mainContent" style="display: none;">
+            <!-- 在线班级监控 -->
+            <div class="section">
+                <h2>
+                    <span class="icon"></span>
+                    在线班级监控
+                    <button class="btn btn-sm btn-success" onclick="refreshClasses()" style="margin-left: auto;">
+                        刷新
+                    </button>
+                </h2>
+                <div class="online-classes" id="onlineClasses">
+                    <span class="no-classes">等待连接...</span>
+                </div>
+            </div>
+
+            <!-- 发送通知 -->
+            <div class="section">
+                <h2>
+                    <span class="icon"></span>
+                    发送通知
+                </h2>
+                <div class="form-group">
+                    <label for="targetClass">目标班级：</label>
+                    <select id="targetClass">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notificationType">通知类型：</label>
+                    <select id="notificationType">
+                        <option value="notice">普通通知</option>
+                        <option value="announcement">公共播报</option>
+                        <option value="urgent">紧急通知</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notificationContent">通知内容：</label>
+                    <textarea 
+                        id="notificationContent" 
+                        placeholder="请输入通知内容..."
+                        maxlength="500"
+                    ></textarea>
+                    <p class="password-hint">
+                        字符计数：<span id="charCount">0</span>/500
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="sendNotification()">
+                        发送通知
+                    </button>
+                    <button class="btn btn-danger" onclick="sendUrgentNotification()">
+                        发送紧急通知
+                    </button>
+                    <button class="btn btn-warning" onclick="clearForm()">
+                        清空内容
+                    </button>
+                </div>
+            </div>
+
+            <!-- 快捷通知模板 -->
+            <div class="section">
+                <h2>
+                    <span class="icon"></span>
+                    快捷通知模板
+                </h2>
+                <div class="btn-group">
+                    <button class="btn btn-sm" onclick="useTemplate('math')">
+                        叫数学课代表
+                    </button>
+                    <button class="btn btn-sm" onclick="useTemplate('english')">
+                        叫英语课代表
+                    </button>
+                    <button class="btn btn-sm" onclick="useTemplate('chinese')">
+                        叫语文课代表
+                    </button>
+                    <button class="btn btn-sm" onclick="useTemplate('clean')">
+                        卫生检查
+                    </button>
+                </div>
+            </div>
+
+            <!-- 消息日志 -->
+            <div class="section">
+                <h2>
+                    <span class="icon"></span>
+                    操作日志
+                    <button class="btn btn-sm" onclick="clearLog()" style="margin-left: auto;">
+                        清空日志
+                    </button>
+                </h2>
+                <div class="message-log" id="messageLog">
+                    <div class="log-entry info">
+                        <span class="time">--:--:--</span>
+                        <span class="message">系统就绪，等待连接...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ 配置 ============
+        const WS_URL = 'ws://110.42.103.198:5605';
+        const COOKIE_NAME_PASSWORD = 'teacher_password';
+        const COOKIE_NAME_NAME = 'teacher_name';
+        const COOKIE_NAME_TARGET = 'teacher_target_class';
+        const COOKIE_NAME_TYPE = 'teacher_notification_type';
+        const COOKIE_NAME_CONTENT = 'teacher_notification_content';
+        const COOKIE_DAYS = 365;
+        
+        // 当前教师称呼
+        let currentTeacherName = '';
+        
+        // 待发送的通知数据（用于确认对话框）
+        let pendingNotification = null;
+        
+        // ============ 状态管理 ============
+        let ws = null;
+        let isConnected = false;
+        let isConnecting = false;
+        let reconnectTimer = null;
+        let heartbeatTimer = null;
+        let reconnectAttempts = 0;
+        const MAX_RECONNECT_ATTEMPTS = 10;
+        
+        // ============ 初始化 ============
+        window.onload = function() {
+            console.log('教师端初始化...');
+            document.getElementById('serverInfo').textContent = WS_URL.replace('ws://', '');
+            
+            // 恢复保存的信息
+            restoreSavedData();
+            
+            // 监听文本区域字符计数
+            const textarea = document.getElementById('notificationContent');
+            textarea.addEventListener('input', function() {
+                updateCharCount();
+                saveFormData();
+            });
+            
+            // 监听下拉框变化
+            document.getElementById('targetClass').addEventListener('change', saveFormData);
+            document.getElementById('notificationType').addEventListener('change', saveFormData);
+            
+            // 监听称呼输入框变化
+            document.getElementById('teacherName').addEventListener('input', function() {
+                setCookie(COOKIE_NAME_NAME, this.value.trim());
+                currentTeacherName = this.value.trim();
+            });
+        };
+
+        // ============ Cookie 操作 ============
+        function setCookie(name, value, days = COOKIE_DAYS) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/;SameSite=Strict";
+            console.log('Cookie已保存:', name);
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nameEQ) === 0) {
+                    return decodeURIComponent(c.substring(nameEQ.length, c.length));
+                }
+            }
+            return null;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999; path=/';
+            console.log('Cookie已删除:', name);
+        }
+
+        // ============ 数据保存和恢复 ============
+        function saveFormData() {
+            const targetClass = document.getElementById('targetClass').value;
+            const notificationType = document.getElementById('notificationType').value;
+            const content = document.getElementById('notificationContent').value;
+            
+            setCookie(COOKIE_NAME_TARGET, targetClass);
+            setCookie(COOKIE_NAME_TYPE, notificationType);
+            setCookie(COOKIE_NAME_CONTENT, content);
+        }
+
+        function restoreSavedData() {
+            // 恢复称呼
+            const savedName = getCookie(COOKIE_NAME_NAME);
+            if (savedName) {
+                document.getElementById('teacherName').value = savedName;
+                currentTeacherName = savedName;
+            }
+            
+            // 恢复密码
+            const savedPassword = getCookie(COOKIE_NAME_PASSWORD);
+            if (savedPassword) {
+                document.getElementById('passwordInput').value = savedPassword;
+            }
+            
+            // 恢复表单数据
+            restoreFormData();
+            
+            // 如果有密码和称呼，自动连接
+            if (savedPassword && savedName) {
+                console.log('发现保存的认证信息，自动连接...');
+                authenticate();
+            }
+        }
+
+        function restoreFormData() {
+            const savedTarget = getCookie(COOKIE_NAME_TARGET);
+            const savedType = getCookie(COOKIE_NAME_TYPE);
+            const savedContent = getCookie(COOKIE_NAME_CONTENT);
+            
+            // 延迟恢复，等待下拉框填充完成
+            setTimeout(() => {
+                if (savedTarget) {
+                    const targetSelect = document.getElementById('targetClass');
+                    // 检查选项是否存在
+                    for (let i = 0; i < targetSelect.options.length; i++) {
+                        if (targetSelect.options[i].value === savedTarget) {
+                            targetSelect.value = savedTarget;
+                            break;
+                        }
+                    }
+                }
+                
+                if (savedType) {
+                    document.getElementById('notificationType').value = savedType;
+                }
+                
+                if (savedContent) {
+                    document.getElementById('notificationContent').value = savedContent;
+                    updateCharCount();
+                }
+            }, 100);
+        }
+
+        // ============ 认证 ============
+        function authenticate() {
+            const password = document.getElementById('passwordInput').value.trim();
+            const teacherName = document.getElementById('teacherName').value.trim();
+            
+            if (!password) {
+                addLog('请输入教师端密码', 'warning');
+                return;
+            }
+            
+            if (!teacherName) {
+                addLog('请输入您的称呼', 'warning');
+                return;
+            }
+            
+            // 保存到cookie
+            setCookie(COOKIE_NAME_PASSWORD, password);
+            setCookie(COOKIE_NAME_NAME, teacherName);
+            currentTeacherName = teacherName;
+            
+            // 连接WebSocket
+            connectWebSocket(password, teacherName);
+        }
+
+        function clearAllSavedData() {
+            deleteCookie(COOKIE_NAME_PASSWORD);
+            deleteCookie(COOKIE_NAME_NAME);
+            deleteCookie(COOKIE_NAME_TARGET);
+            deleteCookie(COOKIE_NAME_TYPE);
+            deleteCookie(COOKIE_NAME_CONTENT);
+            
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('teacherName').value = '';
+            document.getElementById('notificationContent').value = '';
+            document.getElementById('notificationType').value = 'notice';
+            currentTeacherName = '';
+            
+            updateCharCount();
+            addLog('已清除所有保存的信息', 'info');
+            
+            if (isConnected) {
+                disconnect();
+            }
+            
+            document.getElementById('passwordSection').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'none';
+        }
+
+        // ============ WebSocket 连接管理 ============
+        function connectWebSocket(password, teacherName) {
+            if (isConnected || isConnecting) {
+                console.log('已连接或正在连接中...');
+                return;
+            }
+            
+            isConnecting = true;
+            updateConnectionStatus('connecting');
+            addLog('正在连接服务器...', 'info');
+            
+            try {
+                ws = new WebSocket(WS_URL);
+                
+                ws.onopen = function() {
+                    console.log('WebSocket连接成功');
+                    isConnected = true;
+                    isConnecting = false;
+                    reconnectAttempts = 0;
+                    updateConnectionStatus('connected');
+                    addLog('WebSocket连接成功', 'success');
+                    
+                    // 发送认证消息（包含教师称呼）
+                    const authMessage = {
+                        type: 'auth_teacher',
+                        password: password,
+                        teacher_name: teacherName
+                    };
+                    ws.send(JSON.stringify(authMessage));
+                    console.log('发送认证消息:', teacherName);
+                    
+                    // 启动心跳
+                    startHeartbeat();
+                    
+                    // 隐藏密码区域，显示主内容
+                    document.getElementById('passwordSection').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                };
+                
+                ws.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        console.log('收到消息:', data);
+                        handleMessage(data);
+                    } catch (e) {
+                        console.error('消息解析失败:', e, event.data);
+                        addLog('消息解析失败', 'error');
+                    }
+                };
+                
+                ws.onerror = function(error) {
+                    console.error('WebSocket错误:', error);
+                    isConnecting = false;
+                    addLog('WebSocket连接发生错误', 'error');
+                };
+                
+                ws.onclose = function(event) {
+                    console.log('WebSocket连接关闭:', event.code, event.reason);
+                    isConnected = false;
+                    isConnecting = false;
+                    updateConnectionStatus('disconnected');
+                    stopHeartbeat();
+                    
+                    if (event.code !== 1000) {
+                        addLog('连接断开 (代码: ' + event.code + ')', 'warning');
+                        
+                        // 自动重连
+                        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                            const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+                            addLog((delay/1000) + '秒后尝试重连...', 'info');
+                            
+                            if (reconnectTimer) clearTimeout(reconnectTimer);
+                            reconnectTimer = setTimeout(() => {
+                                reconnectAttempts++;
+                                const savedPwd = getCookie(COOKIE_NAME_PASSWORD);
+                                const savedName = getCookie(COOKIE_NAME_NAME);
+                                if (savedPwd && savedName) {
+                                    connectWebSocket(savedPwd, savedName);
+                                } else {
+                                    document.getElementById('passwordSection').style.display = 'block';
+                                    document.getElementById('mainContent').style.display = 'none';
+                                }
+                            }, delay);
+                        } else {
+                            addLog('达到最大重连次数，请手动重连', 'error');
+                            document.getElementById('passwordSection').style.display = 'block';
+                            document.getElementById('mainContent').style.display = 'none';
+                        }
+                    }
+                };
+            } catch (e) {
+                console.error('创建WebSocket失败:', e);
+                isConnecting = false;
+                addLog('创建连接失败: ' + e.message, 'error');
+            }
+        }
+
+        function disconnect() {
+            if (reconnectTimer) {
+                clearTimeout(reconnectTimer);
+                reconnectTimer = null;
+            }
+            stopHeartbeat();
+            
+            if (ws) {
+                ws.close(1000, '用户主动断开');
+                ws = null;
+            }
+            
+            isConnected = false;
+            isConnecting = false;
+            reconnectAttempts = 0;
+            updateConnectionStatus('disconnected');
+            addLog('已断开连接', 'info');
+        }
+
+        function toggleConnection() {
+            if (isConnected) {
+                disconnect();
+            } else {
+                const password = getCookie(COOKIE_NAME_PASSWORD) || document.getElementById('passwordInput').value.trim();
+                const teacherName = getCookie(COOKIE_NAME_NAME) || document.getElementById('teacherName').value.trim();
+                
+                if (password && teacherName) {
+                    connectWebSocket(password, teacherName);
+                } else {
+                    document.getElementById('passwordSection').style.display = 'block';
+                    addLog('请先输入认证信息', 'warning');
+                }
+            }
+        }
+
+        // ============ 心跳 ============
+        function startHeartbeat() {
+            stopHeartbeat();
+            heartbeatTimer = setInterval(() => {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ type: 'ping' }));
+                    console.log('发送心跳');
+                }
+            }, 30000);
+        }
+
+        function stopHeartbeat() {
+            if (heartbeatTimer) {
+                clearInterval(heartbeatTimer);
+                heartbeatTimer = null;
+            }
+        }
+
+        // ============ 连接状态显示 ============
+        function updateConnectionStatus(status) {
+            const dot = document.getElementById('statusDot');
+            const text = document.getElementById('statusText');
+            const btn = document.getElementById('connectBtn');
+            
+            dot.className = 'status-dot';
+            
+            switch(status) {
+                case 'connected':
+                    dot.classList.add('connected');
+                    text.textContent = '已连接';
+                    text.style.color = '#4CAF50';
+                    btn.textContent = '断开连接';
+                    btn.className = 'btn btn-sm btn-danger';
+                    break;
+                case 'disconnected':
+                    dot.classList.add('disconnected');
+                    text.textContent = '未连接';
+                    text.style.color = '#f44336';
+                    btn.textContent = '连接服务器';
+                    btn.className = 'btn btn-sm btn-success';
+                    break;
+                case 'connecting':
+                    dot.classList.add('connecting');
+                    text.textContent = '连接中...';
+                    text.style.color = '#FF9800';
+                    btn.textContent = '连接中...';
+                    btn.className = 'btn btn-sm btn-warning';
+                    btn.disabled = true;
+                    setTimeout(() => { btn.disabled = false; }, 3000);
+                    break;
+            }
+        }
+
+        // ============ 消息处理 ============
+        function handleMessage(data) {
+            switch (data.type) {
+                case 'auth_success':
+                    addLog('[OK] ' + data.message, 'success');
+                    if (data.teacher_name) {
+                        currentTeacherName = data.teacher_name;
+                    }
+                    break;
+                
+                case 'error':
+                    addLog('[X] ' + data.message, 'error');
+                    if (data.message.includes('验证失败') || data.message.includes('密码')) {
+                        deleteCookie(COOKIE_NAME_PASSWORD);
+                        disconnect();
+                        document.getElementById('passwordSection').style.display = 'block';
+                        document.getElementById('mainContent').style.display = 'none';
+                        addLog('认证失败，请重新输入信息', 'warning');
+                    }
+                    break;
+                
+                case 'online_classes':
+                    updateOnlineClasses(data.classes);
+                    break;
+                
+                case 'success':
+                    addLog('[OK] ' + data.message, 'success');
+                    // 显示发送成功弹窗
+                    showSuccessToast(data.message);
+                    break;
+                
+                case 'pong':
+                    console.log('收到心跳响应');
+                    break;
+                
+                default:
+                    console.log('未知消息类型:', data);
+                    addLog('收到未知类型消息: ' + data.type, 'warning');
+            }
+        }
+
+        // ============ 在线班级管理 ============
+        function updateOnlineClasses(classes) {
+            const container = document.getElementById('onlineClasses');
+            const select = document.getElementById('targetClass');
+            
+            // 保存当前选择的值
+            const currentValue = select.value;
+            
+            // 更新显示
+            if (!classes || classes.length === 0) {
+                container.innerHTML = '<span class="no-classes">暂无班级在线</span>';
+            } else {
+                container.innerHTML = classes.map(c => 
+                    '<span class="class-badge online"> ' + c + '</span>'
+                ).join('');
+                addLog('在线班级: ' + classes.join(', '), 'info');
+            }
+            
+            // 更新下拉选择框 - 先添加具体班级，最后添加"所有在线班级"
+            select.innerHTML = '';
+            if (classes && classes.length > 0) {
+                classes.forEach(c => {
+                    const option = document.createElement('option');
+                    option.value = c;
+                    option.textContent = c;
+                    select.appendChild(option);
+                });
+            }
+            
+            // 在最后添加"所有在线班级"选项
+            const allOption = document.createElement('option');
+            allOption.value = 'all';
+            allOption.textContent = '所有在线班级（慎重选择！）';
+            allOption.style.color = '#f44336';
+            allOption.style.fontWeight = 'bold';
+            select.appendChild(allOption);
+            
+            // 恢复之前的选择
+            if (currentValue) {
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].value === currentValue) {
+                        select.value = currentValue;
+                        break;
+                    }
+                }
+            } else {
+                // 尝试从cookie恢复
+                restoreFormData();
+            }
+        }
+
+        function refreshClasses() {
+            if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'ping' }));
+                addLog('已请求刷新在线班级列表', 'info');
+            } else {
+                addLog('未连接到服务器，无法刷新', 'warning');
+            }
+        }
+
+        // ============ 发送成功弹窗 ============
+        function showSuccessToast(message) {
+            const toast = document.getElementById('successToast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message || '通知已成功发送';
+            toast.classList.add('active');
+            
+            // 2秒后自动关闭
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 2000);
+        }
+
+        // ============ 发送通知 ============
+        function sendNotification(type = null) {
+            if (!isConnected || !ws || ws.readyState !== WebSocket.OPEN) {
+                addLog('未连接到服务器，无法发送通知', 'error');
+                return;
+            }
+            
+            const targetClass = document.getElementById('targetClass').value;
+            const notificationType = type || document.getElementById('notificationType').value;
+            const content = document.getElementById('notificationContent').value.trim();
+            
+            if (!content) {
+                addLog('请输入通知内容', 'warning');
+                return;
+            }
+            
+            // 如果选择了"所有在线班级"，弹出确认对话框
+            if (targetClass === 'all') {
+                pendingNotification = {
+                    targetClass: targetClass,
+                    notificationType: notificationType,
+                    content: content
+                };
+                
+                // 更新确认按钮事件
+                document.getElementById('confirmAllClassBtn').onclick = function() {
+                    executeSendNotification(pendingNotification);
+                    closeConfirmModal();
+                };
+                
+                // 显示确认对话框
+                document.getElementById('confirmModal').classList.add('active');
+                return;
+            }
+            
+            // 单个班级直接发送
+            executeSendNotification({
+                targetClass: targetClass,
+                notificationType: notificationType,
+                content: content
+            });
+        }
+        
+        function executeSendNotification(notificationData) {
+            const message = {
+                type: 'send_notification',
+                class_id: notificationData.targetClass,
+                notification_type: notificationData.notificationType,
+                content: notificationData.content,
+                teacher_name: currentTeacherName
+            };
+            
+            try {
+                ws.send(JSON.stringify(message));
+                
+                const typeNames = {
+                    'notice': '普通通知',
+                    'announcement': '公共播报',
+                    'urgent': '紧急通知'
+                };
+                
+                const targetName = notificationData.targetClass === 'all' ? '所有在线班级' : notificationData.targetClass;
+                addLog('[发送] ' + currentTeacherName + ' - ' + typeNames[notificationData.notificationType] + '到 ' + targetName, 'success');
+                
+                // 显示发送成功弹窗
+                showSuccessToast('通知已成功发送到 ' + targetName);
+                
+                // 不保存空内容，保持当前内容不变
+                // 注意：不清空表单内容
+            } catch (e) {
+                addLog('发送失败: ' + e.message, 'error');
+            }
+        }
+
+        function sendUrgentNotification() {
+            document.getElementById('notificationType').value = 'urgent';
+            saveFormData();
+            sendNotification('urgent');
+        }
+        
+        function cancelAllClassNotification() {
+            pendingNotification = null;
+            closeConfirmModal();
+            addLog('已取消群发通知', 'info');
+        }
+        
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+        }
+
+        // ============ 快捷模板 ============
+        function useTemplate(type) {
+            const templates = {
+                'math': {
+                    type: 'notice',
+                    content: '请数学课代表去办公室'
+                },
+                'english': {
+                    type: 'notice',
+                    content: '请英语课代表去办公室'
+                },
+                'chinese': {
+                    type: 'notice',
+                    content: '请语文课代表去办公室'
+                },
+                'clean': {
+                    type: 'announcement',
+                    content: '请安排清洁'
+                }
+            };
+            
+            const template = templates[type];
+            if (template) {
+                document.getElementById('notificationType').value = template.type;
+                document.getElementById('notificationContent').value = template.content;
+                updateCharCount();
+                saveFormData();
+                addLog('已加载模板: ' + getTemplateName(type), 'info');
+            }
+        }
+        
+        function getTemplateName(type) {
+            const names = {
+                'math': '叫数学课代表',
+                'english': '叫英语课代表',
+                'chinese': '叫语文课代表',
+                'clean': '卫生检查'
+            };
+            return names[type] || type;
+        }
+
+        // ============ UI辅助 ============
+        function clearForm() {
+            document.getElementById('notificationContent').value = '';
+            updateCharCount();
+            // 清空内容cookie
+            setCookie(COOKIE_NAME_CONTENT, '');
+            addLog('内容已清空', 'info');
+        }
+
+        function updateCharCount() {
+            const textarea = document.getElementById('notificationContent');
+            const count = document.getElementById('charCount');
+            const length = textarea.value.length;
+            count.textContent = length;
+            
+            if (length > 400) {
+                count.style.color = '#f44336';
+            } else if (length > 300) {
+                count.style.color = '#FF9800';
+            } else {
+                count.style.color = '#999';
+            }
+        }
+
+        // ============ 日志管理 ============
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('messageLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + type;
+            
+            const now = new Date();
+            const time = now.toLocaleTimeString('zh-CN', { hour12: false });
+            
+            entry.innerHTML = 
+                '<span class="time">' + time + '</span>' +
+                '<span class="message">' + message + '</span>';
+            
+            // 插入到最前面
+            logDiv.insertBefore(entry, logDiv.firstChild);
+            
+            // 限制日志数量
+            const maxLogs = 100;
+            while (logDiv.children.length > maxLogs) {
+                logDiv.removeChild(logDiv.lastChild);
+            }
+        }
+
+        function clearLog() {
+            const logDiv = document.getElementById('messageLog');
+            logDiv.innerHTML = 
+                '<div class="log-entry info">' +
+                    '<span class="time">' + new Date().toLocaleTimeString('zh-CN', { hour12: false }) + '</span>' +
+                    '<span class="message">日志已清空</span>' +
+                '</div>';
+        }
+
+        // ============ 页面关闭处理 ============
+        window.onbeforeunload = function() {
+            // 保存表单数据
+            saveFormData();
+            
+            if (isConnected) {
+                disconnect();
+            }
+        };
+
+        // ============ 键盘快捷键 ============
+        document.addEventListener('keydown', function(event) {
+            // Ctrl+Enter 发送通知
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                sendNotification();
+            }
+            
+            // Escape 清空表单或关闭弹窗
+            if (event.key === 'Escape') {
+                // 先检查是否有打开的确认弹窗
+                const modal = document.getElementById('confirmModal');
+                if (modal.classList.contains('active')) {
+                    cancelAllClassNotification();
+                }
+            }
+        });
+
+        // ============ 点击弹窗外部关闭 ============
+        document.getElementById('confirmModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                cancelAllClassNotification();
+            }
+        });
+    </script>
+</body>
+</html>
