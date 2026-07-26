@@ -811,7 +811,7 @@
             <!-- 在线班级监控 -->
             <div class="section">
                 <h2>
-                    在线班级监控
+                    在线班级
                     <button class="btn btn-sm btn-success" onclick="refreshClasses()" style="margin-left: auto;">
                         刷新
                     </button>
@@ -900,7 +900,9 @@
 
     <script>
         // ============ 配置 ============
-        const WS_URL = 'ws://110.42.103.198:5605';
+        // 自动判断协议：HTTPS页面使用WSS，HTTP页面使用WS
+        const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const WS_URL = WS_PROTOCOL + '//110.42.103.198:5605';
         const COOKIE_NAME_PASSWORD = 'teacher_password';
         const COOKIE_NAME_NAME = 'teacher_name';
         const COOKIE_NAME_TARGET = 'teacher_target_class';
