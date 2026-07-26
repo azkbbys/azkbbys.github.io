@@ -28,7 +28,6 @@
             margin: 0 auto;
         }
 
-        /* 头部样式 */
         .header {
             background: white;
             border-radius: 15px;
@@ -109,7 +108,6 @@
             color: #999;
         }
 
-        /* 主内容区域 */
         .main-content {
             background: white;
             border-radius: 15px;
@@ -140,7 +138,6 @@
             gap: 6px;
         }
 
-        /* 表单样式 */
         .form-group {
             margin-bottom: 15px;
         }
@@ -191,7 +188,6 @@
             min-height: 80px;
         }
 
-        /* 确认对话框样式 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -255,7 +251,6 @@
             justify-content: flex-end;
         }
 
-        /* 发送成功提示弹窗 */
         .toast-overlay {
             display: none;
             position: fixed;
@@ -317,7 +312,6 @@
             }
         }
 
-        /* 按钮样式 */
         .btn-group {
             display: flex;
             gap: 8px;
@@ -395,7 +389,6 @@
             min-height: 36px;
         }
 
-        /* 在线班级样式 */
         .online-classes {
             display: flex;
             flex-wrap: wrap;
@@ -433,7 +426,6 @@
             font-size: 13px;
         }
 
-        /* 消息日志 */
         .message-log {
             background: #f5f5f5;
             border: 2px solid #e0e0e0;
@@ -488,7 +480,6 @@
             color: #e65100;
         }
 
-        /* 密码区域 */
         .password-section {
             background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
             border: 2px solid #ffb74d;
@@ -510,7 +501,6 @@
             line-height: 1.4;
         }
 
-        /* 响应式设计 - 手机端 */
         @media (max-width: 600px) {
             body {
                 padding: 8px;
@@ -668,7 +658,6 @@
             }
         }
 
-        /* 超小屏幕优化 */
         @media (max-width: 360px) {
             .status-bar {
                 flex-direction: column;
@@ -685,7 +674,6 @@
             }
         }
 
-        /* 横屏手机优化 */
         @media (max-width: 900px) and (orientation: landscape) {
             .section {
                 padding: 10px;
@@ -702,7 +690,6 @@
             }
         }
 
-        /* 加载动画 */
         .loading {
             display: inline-block;
             width: 18px;
@@ -718,7 +705,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 安全区域适配 */
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
             body {
                 padding-bottom: calc(15px + env(safe-area-inset-bottom));
@@ -900,8 +886,8 @@
 
     <script>
         // ============ 配置 ============
-        // 自动判断协议：HTTPS页面使用WSS，HTTP页面使用WS
-        const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        // GitHub Pages 强制 HTTPS，必须使用 WSS
+        const WS_PROTOCOL = 'wss:';
         const WS_HOST = '110.42.103.198';
         const WS_PORT = '5605';
         const WS_URL = WS_PROTOCOL + '//' + WS_HOST + ':' + WS_PORT;
@@ -927,6 +913,9 @@
         // ============ 初始化 ============
         window.onload = function() {
             document.getElementById('serverInfo').textContent = WS_HOST + ':' + WS_PORT;
+            
+            console.log('=== ClassCall 教师端 ===');
+            console.log('页面协议:', window.location.protocol);
             console.log('WebSocket URL:', WS_URL);
             
             // 恢复保存的信息
@@ -1086,20 +1075,33 @@
             
             isConnecting = true;
             updateConnectionStatus('connecting');
-            addLog('正在连接服务器...', 'info');
-            console.log('连接地址:', WS_URL);
+            
+            console.log('=== 开始连接 ===');
+            console.log('WebSocket URL:', WS_URL);
+            addLog('正在连接: ' + WS_URL, 'info');
             
             try {
                 ws = new WebSocket(WS_URL);
                 
+                // 连接超时处理
+                const connectionTimeout = setTimeout(() => {
+                    if (ws && ws.readyState !== WebSocket.OPEN) {
+                        console.error('连接超时');
+                        ws.close();
+                        addLog('连接超时，请检查服务器', 'error');
+                    }
+                }, 10000);
+                
                 ws.onopen = function() {
+                    clearTimeout(connectionTimeout);
                     console.log('WebSocket连接成功');
                     isConnected = true;
                     isConnecting = false;
                     reconnectAttempts = 0;
                     updateConnectionStatus('connected');
-                    addLog('WebSocket连接成功', 'success');
+                    addLog('连接成功', 'success');
                     
+                    // 发送认证
                     ws.send(JSON.stringify({
                         type: 'auth_teacher',
                         password: password,
@@ -1115,55 +1117,74 @@
                 ws.onmessage = function(event) {
                     try {
                         const data = JSON.parse(event.data);
-                        console.log('收到消息:', data);
+                        console.log('收到:', data);
                         handleMessage(data);
                     } catch (e) {
-                        console.error('消息解析失败:', e);
+                        console.error('解析失败:', e);
                         addLog('消息解析失败', 'error');
                     }
                 };
                 
                 ws.onerror = function(error) {
-                    console.error('WebSocket错误:', error);
+                    clearTimeout(connectionTimeout);
+                    console.error('=== WebSocket错误 ===');
+                    console.error('URL:', WS_URL);
+                    console.error('状态:', ws ? ws.readyState : 'null');
+                    
                     isConnecting = false;
-                    addLog('WebSocket连接错误，请检查服务器是否支持WSS', 'error');
+                    addLog('连接错误 - 请确认服务器已启动并支持WSS', 'error');
                 };
                 
                 ws.onclose = function(event) {
-                    console.log('WebSocket关闭:', event.code, event.reason);
+                    clearTimeout(connectionTimeout);
+                    console.log('=== 连接关闭 ===');
+                    console.log('代码:', event.code, '原因:', event.reason);
+                    
                     isConnected = false;
                     isConnecting = false;
                     updateConnectionStatus('disconnected');
                     stopHeartbeat();
                     
                     if (event.code !== 1000) {
-                        addLog('连接断开 (代码: ' + event.code + ')', 'warning');
+                        // 错误代码解释
+                        const errorMap = {
+                            1006: 'TLS/SSL握手失败 - 证书可能有问题',
+                            1015: 'TLS握手失败 - 证书验证失败',
+                            1001: '服务器主动关闭',
+                            1002: '协议错误',
+                            1003: '数据格式错误',
+                            1005: '无状态码 - 可能是网络问题',
+                            1007: '数据不一致'
+                        };
+                        const desc = errorMap[event.code] || '未知错误';
+                        addLog('断开 (代码' + event.code + '): ' + desc, 'warning');
                         
+                        // 重连
                         if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-                            const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+                            const delay = Math.min(2000 * Math.pow(2, reconnectAttempts), 30000);
                             addLog((delay/1000) + '秒后重连...', 'info');
                             
                             if (reconnectTimer) clearTimeout(reconnectTimer);
                             reconnectTimer = setTimeout(() => {
                                 reconnectAttempts++;
-                                const savedPwd = getCookie(COOKIE_NAME_PASSWORD);
-                                const savedName = getCookie(COOKIE_NAME_NAME);
-                                if (savedPwd && savedName) {
-                                    connectWebSocket(savedPwd, savedName);
+                                const pwd = getCookie(COOKIE_NAME_PASSWORD);
+                                const name = getCookie(COOKIE_NAME_NAME);
+                                if (pwd && name) {
+                                    connectWebSocket(pwd, name);
                                 } else {
                                     document.getElementById('passwordSection').style.display = 'block';
                                     document.getElementById('mainContent').style.display = 'none';
                                 }
                             }, delay);
                         } else {
-                            addLog('达到最大重连次数，请手动重连', 'error');
+                            addLog('重连次数已达上限，请检查后手动连接', 'error');
                             document.getElementById('passwordSection').style.display = 'block';
                             document.getElementById('mainContent').style.display = 'none';
                         }
                     }
                 };
             } catch (e) {
-                console.error('创建WebSocket失败:', e);
+                console.error('创建失败:', e);
                 isConnecting = false;
                 addLog('创建连接失败: ' + e.message, 'error');
             }
@@ -1273,7 +1294,7 @@
                         disconnect();
                         document.getElementById('passwordSection').style.display = 'block';
                         document.getElementById('mainContent').style.display = 'none';
-                        addLog('认证失败，请重新输入信息', 'warning');
+                        addLog('认证失败，请重新输入', 'warning');
                     }
                     break;
                 
@@ -1290,7 +1311,7 @@
                     break;
                 
                 default:
-                    addLog('收到未知消息: ' + data.type, 'warning');
+                    addLog('收到: ' + data.type, 'warning');
             }
         }
 
@@ -1306,7 +1327,7 @@
                 container.innerHTML = classes.map(c => 
                     '<span class="class-badge online">' + c + '</span>'
                 ).join('');
-                addLog('在线班级: ' + classes.join(', '), 'info');
+                addLog('在线: ' + classes.join(', '), 'info');
             }
             
             select.innerHTML = '';
@@ -1341,9 +1362,9 @@
         function refreshClasses() {
             if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify({ type: 'ping' }));
-                addLog('已请求刷新班级列表', 'info');
+                addLog('已请求刷新', 'info');
             } else {
-                addLog('未连接到服务器', 'warning');
+                addLog('未连接', 'warning');
             }
         }
 
@@ -1361,9 +1382,9 @@
         }
 
         // ============ 发送通知 ============
-        function sendNotification(type = null) {
+        function sendNotification(type) {
             if (!isConnected || !ws || ws.readyState !== WebSocket.OPEN) {
-                addLog('未连接到服务器，无法发送通知', 'error');
+                addLog('未连接，无法发送', 'error');
                 return;
             }
             
@@ -1372,7 +1393,7 @@
             const content = document.getElementById('notificationContent').value.trim();
             
             if (!content) {
-                addLog('请输入通知内容', 'warning');
+                addLog('请输入内容', 'warning');
                 return;
             }
             
@@ -1399,17 +1420,15 @@
             });
         }
         
-        function executeSendNotification(notificationData) {
-            const message = {
-                type: 'send_notification',
-                class_id: notificationData.targetClass,
-                notification_type: notificationData.notificationType,
-                content: notificationData.content,
-                teacher_name: currentTeacherName
-            };
-            
+        function executeSendNotification(data) {
             try {
-                ws.send(JSON.stringify(message));
+                ws.send(JSON.stringify({
+                    type: 'send_notification',
+                    class_id: data.targetClass,
+                    notification_type: data.notificationType,
+                    content: data.content,
+                    teacher_name: currentTeacherName
+                }));
                 
                 const typeNames = {
                     'notice': '普通通知',
@@ -1417,9 +1436,8 @@
                     'urgent': '紧急通知'
                 };
                 
-                const targetName = notificationData.targetClass === 'all' ? '所有在线班级' : notificationData.targetClass;
-                addLog('[发送] ' + currentTeacherName + ' - ' + typeNames[notificationData.notificationType] + '到 ' + targetName, 'success');
-                
+                const targetName = data.targetClass === 'all' ? '所有班级' : data.targetClass;
+                addLog('[发送] ' + currentTeacherName + ' - ' + typeNames[data.notificationType] + ' -> ' + targetName, 'success');
                 showSuccessToast('已发送到 ' + targetName);
             } catch (e) {
                 addLog('发送失败: ' + e.message, 'error');
@@ -1435,7 +1453,7 @@
         function cancelAllClassNotification() {
             pendingNotification = null;
             closeConfirmModal();
-            addLog('已取消群发通知', 'info');
+            addLog('已取消', 'info');
         }
         
         function closeConfirmModal() {
@@ -1457,18 +1475,8 @@
                 document.getElementById('notificationContent').value = template.content;
                 updateCharCount();
                 saveFormData();
-                addLog('已加载模板: ' + getTemplateName(type), 'info');
+                addLog('已加载模板', 'info');
             }
-        }
-        
-        function getTemplateName(type) {
-            const names = {
-                'math': '数学课代表',
-                'english': '英语课代表',
-                'chinese': '语文课代表',
-                'clean': '卫生检查'
-            };
-            return names[type] || type;
         }
 
         // ============ UI辅助 ============
@@ -1488,7 +1496,8 @@
         }
 
         // ============ 日志管理 ============
-        function addLog(message, type = 'info') {
+        function addLog(message, type) {
+            type = type || 'info';
             const logDiv = document.getElementById('messageLog');
             const entry = document.createElement('div');
             entry.className = 'log-entry ' + type;
@@ -1516,13 +1525,13 @@
                 '</div>';
         }
 
-        // ============ 页面关闭处理 ============
+        // ============ 页面关闭 ============
         window.onbeforeunload = function() {
             saveFormData();
             if (isConnected) disconnect();
         };
 
-        // ============ 键盘快捷键 ============
+        // ============ 快捷键 ============
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.key === 'Enter') {
                 event.preventDefault();
@@ -1537,14 +1546,13 @@
             }
         });
 
-        // ============ 弹窗外部点击关闭 ============
+        // 弹窗外部点击关闭
         document.getElementById('confirmModal').addEventListener('click', function(event) {
             if (event.target === this) {
                 cancelAllClassNotification();
             }
         });
 
-        // 移动端触摸优化
         document.addEventListener('touchstart', function() {}, { passive: true });
     </script>
 </body>
