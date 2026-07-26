@@ -221,14 +221,8 @@
         }
 
         @keyframes modalSlideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-dialog h3 {
@@ -296,25 +290,13 @@
         }
 
         @keyframes toastSlideIn {
-            from {
-                transform: translateY(-40px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         @keyframes toastSlideOut {
-            from {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-40px);
-                opacity: 0;
-            }
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-40px); opacity: 0; }
         }
 
         /* 按钮样式 */
@@ -362,32 +344,12 @@
             opacity: 0.6;
         }
 
-        .btn-success {
-            background: #4CAF50;
-        }
-
-        .btn-success:hover {
-            background: #45a049;
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-        }
-
-        .btn-warning {
-            background: #FF9800;
-        }
-
-        .btn-warning:hover {
-            background: #F57C00;
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-        }
-
-        .btn-danger {
-            background: #f44336;
-        }
-
-        .btn-danger:hover {
-            background: #d32f2f;
-            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
-        }
+        .btn-success { background: #4CAF50; }
+        .btn-success:hover { background: #45a049; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
+        .btn-warning { background: #FF9800; }
+        .btn-warning:hover { background: #F57C00; box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3); }
+        .btn-danger { background: #f44336; }
+        .btn-danger:hover { background: #d32f2f; box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3); }
 
         .btn-sm {
             padding: 8px 14px;
@@ -468,25 +430,10 @@
             word-break: break-all;
         }
 
-        .log-entry.success {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .log-entry.error {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .log-entry.info {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .log-entry.warning {
-            background: #fff3e0;
-            color: #e65100;
-        }
+        .log-entry.success { background: #e8f5e9; color: #2e7d32; }
+        .log-entry.error { background: #ffebee; color: #c62828; }
+        .log-entry.info { background: #e3f2fd; color: #1565c0; }
+        .log-entry.warning { background: #fff3e0; color: #e65100; }
 
         /* 密码区域 */
         .password-section {
@@ -512,219 +459,65 @@
 
         /* 响应式设计 - 手机端 */
         @media (max-width: 600px) {
-            body {
-                padding: 8px;
-            }
-            
-            .header {
-                padding: 15px;
-                border-radius: 12px;
-                margin-bottom: 10px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .header .subtitle {
-                font-size: 12px;
-            }
-
-            .status-bar {
-                padding: 8px 10px;
-                gap: 6px;
-            }
-
-            .status-text {
-                font-size: 12px;
-            }
-
-            .main-content {
-                padding: 15px;
-                border-radius: 12px;
-            }
-
-            .section {
-                padding: 12px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-            }
-
-            .section h2 {
-                font-size: 15px;
-                margin-bottom: 10px;
-                padding-bottom: 6px;
-            }
-
-            label {
-                font-size: 12px;
-                margin-bottom: 4px;
-            }
-
-            select, textarea, input {
-                padding: 8px 10px;
-                font-size: 14px;
-                border-radius: 6px;
-            }
-
-            select {
-                padding-right: 30px;
-                background-size: 14px;
-            }
-
-            textarea {
-                height: 80px;
-                min-height: 70px;
-                font-size: 14px;
-            }
-
-            .btn {
-                padding: 10px 16px;
-                font-size: 13px;
-                min-height: 40px;
-                border-radius: 6px;
-            }
-
-            .btn-sm {
-                padding: 7px 12px;
-                font-size: 12px;
-                min-height: 34px;
-            }
-
-            .btn-group {
-                gap: 6px;
-            }
-
-            .btn-group .btn {
-                flex: 1;
-                min-width: calc(50% - 6px);
-            }
-
-            .class-badge {
-                padding: 5px 10px;
-                font-size: 12px;
-                border-radius: 14px;
-            }
-
-            .password-section {
-                padding: 15px;
-                border-radius: 8px;
-            }
-
-            .password-section h3 {
-                font-size: 15px;
-                margin-bottom: 10px;
-            }
-
-            .modal-dialog {
-                padding: 20px;
-                border-radius: 12px;
-                margin: 0 10px;
-            }
-
-            .modal-dialog h3 {
-                font-size: 16px;
-            }
-
-            .modal-dialog .modal-content {
-                font-size: 13px;
-            }
-
-            .modal-buttons .btn {
-                flex: 1;
-            }
-
-            .toast-dialog {
-                padding: 14px 24px;
-                border-radius: 8px;
-            }
-
-            .toast-dialog h3 {
-                font-size: 16px;
-            }
-
-            .toast-dialog p {
-                font-size: 12px;
-            }
-
-            .message-log {
-                max-height: 150px;
-                font-size: 11px;
-                padding: 8px;
-            }
-
-            .log-entry {
-                padding: 4px 6px;
-                gap: 4px;
-            }
-
-            .log-entry .time {
-                font-size: 10px;
-                min-width: 50px;
-            }
-
-            .form-group {
-                margin-bottom: 12px;
-            }
+            body { padding: 8px; }
+            .header { padding: 15px; border-radius: 12px; margin-bottom: 10px; }
+            .header h1 { font-size: 20px; }
+            .header .subtitle { font-size: 12px; }
+            .status-bar { padding: 8px 10px; gap: 6px; }
+            .status-text { font-size: 12px; }
+            .main-content { padding: 15px; border-radius: 12px; }
+            .section { padding: 12px; margin-bottom: 15px; border-radius: 8px; }
+            .section h2 { font-size: 15px; margin-bottom: 10px; padding-bottom: 6px; }
+            label { font-size: 12px; margin-bottom: 4px; }
+            select, textarea, input { padding: 8px 10px; font-size: 14px; border-radius: 6px; }
+            select { padding-right: 30px; background-size: 14px; }
+            textarea { height: 80px; min-height: 70px; font-size: 14px; }
+            .btn { padding: 10px 16px; font-size: 13px; min-height: 40px; border-radius: 6px; }
+            .btn-sm { padding: 7px 12px; font-size: 12px; min-height: 34px; }
+            .btn-group { gap: 6px; }
+            .btn-group .btn { flex: 1; min-width: calc(50% - 6px); }
+            .class-badge { padding: 5px 10px; font-size: 12px; border-radius: 14px; }
+            .password-section { padding: 15px; border-radius: 8px; }
+            .password-section h3 { font-size: 15px; margin-bottom: 10px; }
+            .modal-dialog { padding: 20px; border-radius: 12px; margin: 0 10px; }
+            .modal-dialog h3 { font-size: 16px; }
+            .modal-dialog .modal-content { font-size: 13px; }
+            .modal-buttons .btn { flex: 1; }
+            .toast-dialog { padding: 14px 24px; border-radius: 8px; }
+            .toast-dialog h3 { font-size: 16px; }
+            .toast-dialog p { font-size: 12px; }
+            .message-log { max-height: 150px; font-size: 11px; padding: 8px; }
+            .log-entry { padding: 4px 6px; gap: 4px; }
+            .log-entry .time { font-size: 10px; min-width: 50px; }
+            .form-group { margin-bottom: 12px; }
         }
 
-        /* 超小屏幕优化 */
         @media (max-width: 360px) {
-            .status-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .btn-group {
-                flex-direction: column;
-            }
-
-            .btn-group .btn {
-                width: 100%;
-                min-width: auto;
-            }
+            .status-bar { flex-direction: column; align-items: flex-start; }
+            .btn-group { flex-direction: column; }
+            .btn-group .btn { width: 100%; min-width: auto; }
         }
 
-        /* 横屏手机优化 */
         @media (max-width: 900px) and (orientation: landscape) {
-            .section {
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-
-            textarea {
-                height: 60px;
-                min-height: 50px;
-            }
-
-            .message-log {
-                max-height: 100px;
-            }
+            .section { padding: 10px; margin-bottom: 10px; }
+            textarea { height: 60px; min-height: 50px; }
+            .message-log { max-height: 100px; }
         }
 
-        /* 加载动画 */
-        .loading {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* 安全区域适配 */
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
-            body {
-                padding-bottom: calc(15px + env(safe-area-inset-bottom));
-            }
+            body { padding-bottom: calc(15px + env(safe-area-inset-bottom)); }
         }
     </style>
+    <!-- 协议检测和跳转脚本 - 必须在页面加载前执行 -->
+    <script>
+        // 自动检测协议，如果是 HTTPS 则跳转到 HTTP
+        (function() {
+            if (window.location.protocol === 'https:') {
+                var httpUrl = window.location.href.replace('https://', 'http://');
+                window.location.replace(httpUrl);
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- 确认对话框 -->
@@ -811,7 +604,7 @@
             <!-- 在线班级监控 -->
             <div class="section">
                 <h2>
-                    在线班级
+                    在线班级监控
                     <button class="btn btn-sm btn-success" onclick="refreshClasses()" style="margin-left: auto;">
                         刷新
                     </button>
@@ -900,9 +693,12 @@
 
     <script>
         // ============ 配置 ============
-        // 自动判断协议：HTTPS页面使用WSS，HTTP页面使用WS
+        // 根据当前页面协议自动选择 WebSocket 协议
         const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const WS_URL = WS_PROTOCOL + '//110.42.103.198:5605';
+        const WS_HOST = '110.42.103.198';
+        const WS_PORT = '5605';
+        const WS_URL = WS_PROTOCOL + '//' + WS_HOST + ':' + WS_PORT;
+        
         const COOKIE_NAME_PASSWORD = 'teacher_password';
         const COOKIE_NAME_NAME = 'teacher_name';
         const COOKIE_NAME_TARGET = 'teacher_target_class';
@@ -923,7 +719,7 @@
         
         // ============ 初始化 ============
         window.onload = function() {
-            document.getElementById('serverInfo').textContent = WS_URL.replace('ws://', '');
+            document.getElementById('serverInfo').textContent = WS_HOST + ':' + WS_PORT;
             
             // 恢复保存的信息
             restoreSavedData();
