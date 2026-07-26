@@ -754,7 +754,7 @@
         <!-- 头部 -->
         <div class="header">
             <h1>ClassCall</h1>
-            <p class="subtitle">教师端 - ClassCall<br/><font color="red">如果连接不上，请将网址中的https://替换成http://</font></p>
+            <p class="subtitle">教师端 - 校园通知管理系统</p>
             <div class="status-bar">
                 <div class="status-indicator">
                     <span class="status-dot disconnected" id="statusDot"></span>
@@ -811,7 +811,7 @@
             <!-- 在线班级监控 -->
             <div class="section">
                 <h2>
-                    在线班级
+                    在线班级监控
                     <button class="btn btn-sm btn-success" onclick="refreshClasses()" style="margin-left: auto;">
                         刷新
                     </button>
@@ -900,7 +900,12 @@
 
     <script>
         // ============ 配置 ============
-        const WS_URL = 'ws://110.42.103.198:5605';
+        // 自动判断协议：HTTPS页面使用WSS，HTTP页面使用WS
+        const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const WS_HOST = '110.42.103.198';
+        const WS_PORT = '5605';
+        const WS_URL = WS_PROTOCOL + '//' + WS_HOST + ':' + WS_PORT;
+        
         const COOKIE_NAME_PASSWORD = 'teacher_password';
         const COOKIE_NAME_NAME = 'teacher_name';
         const COOKIE_NAME_TARGET = 'teacher_target_class';
@@ -921,7 +926,8 @@
         
         // ============ 初始化 ============
         window.onload = function() {
-            document.getElementById('serverInfo').textContent = WS_URL.replace('ws://', '');
+            document.getElementById('serverInfo').textContent = WS_HOST + ':' + WS_PORT;
+            console.log('WebSocket URL:', WS_URL);
             
             // 恢复保存的信息
             restoreSavedData();
@@ -1081,11 +1087,13 @@
             isConnecting = true;
             updateConnectionStatus('connecting');
             addLog('正在连接服务器...', 'info');
+            console.log('连接地址:', WS_URL);
             
             try {
                 ws = new WebSocket(WS_URL);
                 
                 ws.onopen = function() {
+                    console.log('WebSocket连接成功');
                     isConnected = true;
                     isConnecting = false;
                     reconnectAttempts = 0;
@@ -1107,18 +1115,22 @@
                 ws.onmessage = function(event) {
                     try {
                         const data = JSON.parse(event.data);
+                        console.log('收到消息:', data);
                         handleMessage(data);
                     } catch (e) {
+                        console.error('消息解析失败:', e);
                         addLog('消息解析失败', 'error');
                     }
                 };
                 
-                ws.onerror = function() {
+                ws.onerror = function(error) {
+                    console.error('WebSocket错误:', error);
                     isConnecting = false;
-                    addLog('WebSocket连接错误', 'error');
+                    addLog('WebSocket连接错误，请检查服务器是否支持WSS', 'error');
                 };
                 
                 ws.onclose = function(event) {
+                    console.log('WebSocket关闭:', event.code, event.reason);
                     isConnected = false;
                     isConnecting = false;
                     updateConnectionStatus('disconnected');
@@ -1151,6 +1163,7 @@
                     }
                 };
             } catch (e) {
+                console.error('创建WebSocket失败:', e);
                 isConnecting = false;
                 addLog('创建连接失败: ' + e.message, 'error');
             }
