@@ -510,6 +510,16 @@
             line-height: 1.4;
         }
 
+        .security-note {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 10px 12px;
+            margin-top: 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+
         /* 响应式设计 - 手机端 */
         @media (max-width: 600px) {
             body {
@@ -666,6 +676,11 @@
             .form-group {
                 margin-bottom: 12px;
             }
+
+            .security-note {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
         }
 
         /* 超小屏幕优化 */
@@ -760,9 +775,9 @@
                     <span class="status-dot disconnected" id="statusDot"></span>
                     <span class="status-text" id="statusText">未连接</span>
                 </div>
-                <span class="server-info" id="serverInfo">110.42.103.198:5605</span>
+                <span class="server-info" id="serverInfo">wss://your-domain.com:1235</span>
                 <button class="btn btn-sm" onclick="toggleConnection()" id="connectBtn">
-                    连接服务器
+                    连接
                 </button>
             </div>
         </div>
@@ -803,6 +818,9 @@
                 <button class="btn btn-warning" onclick="clearAllSavedData()">
                     清除保存的信息
                 </button>
+            </div>
+            <div class="security-note">
+                🔒 安全提示：连接使用 <strong>WSS</strong> (WebSocket Secure) 加密传输
             </div>
         </div>
 
@@ -900,7 +918,13 @@
 
     <script>
         // ============ 配置 ============
-        const WS_URL = 'ws://110.42.103.198:5605';
+        // 使用 wss:// 协议（安全 WebSocket）
+        // 如果服务器使用自签名证书，请在浏览器中先访问 https://your-domain.com:1235 并信任证书
+        const WS_URL = 'wss://server.azkb.top:1235';
+        
+        // 如果要使用非加密连接，取消注释下面一行并注释掉上面一行
+        // const WS_URL = 'ws://server.azkb.top:1235';
+        
         const COOKIE_NAME_PASSWORD = 'teacher_password';
         const COOKIE_NAME_NAME = 'teacher_name';
         const COOKIE_NAME_TARGET = 'teacher_target_class';
@@ -921,7 +945,7 @@
         
         // ============ 初始化 ============
         window.onload = function() {
-            document.getElementById('serverInfo').textContent = WS_URL.replace('ws://', '');
+            document.getElementById('serverInfo').textContent = WS_URL.replace('wss://', '').replace('ws://', '');
             
             // 恢复保存的信息
             restoreSavedData();
@@ -1090,7 +1114,7 @@
                     isConnecting = false;
                     reconnectAttempts = 0;
                     updateConnectionStatus('connected');
-                    addLog('WebSocket连接成功', 'success');
+                    addLog('WebSocket连接成功 (WSS加密)', 'success');
                     
                     ws.send(JSON.stringify({
                         type: 'auth_teacher',
@@ -1219,7 +1243,7 @@
             switch(status) {
                 case 'connected':
                     dot.classList.add('connected');
-                    text.textContent = '已连接';
+                    text.textContent = '已连接 (WSS加密)';
                     text.style.color = '#4CAF50';
                     btn.textContent = '断开连接';
                     btn.className = 'btn btn-sm btn-danger';
@@ -1435,7 +1459,7 @@
                 'math': { type: 'notice', content: '请数学课代表去办公室' },
                 'english': { type: 'notice', content: '请英语课代表去办公室' },
                 'chinese': { type: 'notice', content: '请语文课代表去办公室' },
-                'clean': { type: 'announcement', content: '请各班级做好教室卫生打扫工作，下午将进行检查。' }
+                'clean': { type: 'notice', content: '请安排清洁。' }
             };
             
             const template = templates[type];
